@@ -2,6 +2,25 @@
 Josefine Tijssen, Andrew Cervantes, Jonathan Vithoontien
 
 # Engineering Notebook
+
+## Week 2 10/9/2020
+### Accomplishments:
+- 
+
+### Failures:
+- We realized that making project around Tufts infrastructure wasn't viable due.
+- Didn't set up AWS stack because shifted project focus to strictly mobile.
+  - We will have to determine if AWS will be necessary for this
+
+### Challenges:
+
+### Goals for Next Week:
+- Redesign user experience of JumboScan
+- Learn Android exposure API
+
+### Key Decisions to be Made:
+- 
+
 ## Week 1 10/2/2020
 ### Accomplishments:
 - Establish our high-level project architecture
