@@ -13,7 +13,7 @@ Josefine Tijssen, Andrew Cervantes, Jonathan Vithoontien
 - Didn't set up AWS stack because shifted project focus to strictly mobile.
   - We will have to determine if AWS will be necessary for this
 ### Challenges:
-- Learning which language to be used
+- Learning new primary language for apps (Swift for iOS/Java for Android)
 - Figuring out other use cases
 - Determining how much data we must store to use Android/Apple exposure APIs
 ### Goals for Next Week:
