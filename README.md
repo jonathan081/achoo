@@ -11,18 +11,21 @@ Josefine Tijssen, Andrew Cervantes, Jonathan Vithoontien
 ### Failures:
 - We realized that making project around Tufts infrastructure wasn't viable due to time constraints and dealing with university administration.
 - Didn't set up AWS stack because shifted project focus to strictly mobile.
-  - We will have to determine if AWS will be necessary for this
+      - We will have to determine if AWS will be necessary for this.
 ### Challenges:
-- Learning new primary language for apps (Swift for iOS/Java for Android)
-- Figuring out other use cases
-- Determining how much data we must store to use Android/Apple exposure APIs
+- Learning new primary language for apps (Swift for iOS/Java for Android).
+- Figuring out other use cases for the application.
+- Determining how much data we must store to use Android/Apple exposure APIs.
 ### Goals for Next Week:
-- Redesign user experience of JumboScan to fit a wider scope
-      - This will include a change of the name
-- Learn Android exposure API and choose which to move foward with (ios/android)
-      - This decision will be made early next week
+- Redesign user experience of JumboScan to fit a wider scope.
+      - This will include a change of the name.
+- Learn both IOS and Android exposure APIs and choose which to move foward with (ios/android).
+      - This decision will be made early next week.
+      - Apple exposure notification framework: https://developer.apple.com/documentation/exposurenotification
+      - Google exposure notifications API: https://developers.google.com/android/exposure-notifications/exposure-notifications-api
 - Start experimenting with mobile app development.
       - Create a "hello world" starter app to get started on each smartphone platform.
+- Create outline on how user privacy can be maintained while contact tracing. 
 ### Key Decisions to be Made:
 - Android vs iOS
 - A new name for the project
