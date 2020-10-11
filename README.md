@@ -1,4 +1,4 @@
-# JumboScan (Soon to be changed)
+# Achoo (Soon to be changed)
 Josefine Tijssen, Andrew Cervantes, Jonathan Vithoontien
 
 # Engineering Notebook
