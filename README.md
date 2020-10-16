@@ -3,6 +3,36 @@ Josefine Tijssen, Andrew Cervantes, Jonathan Vithoontien
 
 # Engineering Notebook
 
+## Week 3 10/16/2020
+### Accomplishments:
+    - Decided on using Android studio
+    - Android Studio Hello World application is underway
+    - Confirmation that SQL will work for the database structure
+    - Potential storage method/real time query options discussed
+    
+### Failures
+
+### Challenges
+- Learning Java (Andrew the only one with some experience)
+- Use cases 
+    - Do we still want to do QR code scanning?
+            - Opens possibility for real time capacity checking (confirmed this is an easy implementation with Prof. Couch
+    - How to implement the tap feature
+- Determinining how much the APIs do
+        - This is in progress, will hopefully have a full understanding by 10/23
+- Determining how to keep data privacy
+    - 1 Potential solution:
+            Reference all users by a randomized hash, and only deal with the hashes in the database. Then, when two hashes interact, and one is infected, the other will be notified.
+### Goals for next week
+- Finalize what the API does
+- Begin a database design working with prof. Couch
+- Begin a front end structure / design (how should it look, what actions should it do, how many pages do we need.
+- Figuring out access (Do we need location, or access to anything from the user?)
+### Key Decisions
+- Any use case besides tracing
+- How much backend is on us vs the APIs
+- A new name (we kinda like Achoo!)
+
 ## Week 2 10/9/2020
 ### Accomplishments:
 - Finished research on which databases to use. We feel SQL should be able to be used for all DBs as long as there is not a social media aspect.
