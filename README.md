@@ -5,15 +5,18 @@ Josefine Tijssen, Andrew Cervantes, Jonathan Vithoontien
 
 ## Week 3 10/16/2020
 ### Accomplishments:
-    - Decided on using Android studio
-    - Android Studio Hello World application is underway
-    - Confirmation that SQL will work for the database structure
-    - Potential storage method/real time query options discussed
+   - Decided on using Android studio
+   - Android Studio Hello World application is underway
+   - Confirmation that SQL will work for the database structure
+   - Potential storage method/real time query options discussed
     
 ### Failures
-
+   - Still don't know what database stores we will need/whether it will be fully supported by the Google.
+       - We still can't determine what our overall architecture will be since we don't know our database solution
+   - We weren't able to come up with a way to incentize users to engage with our app that was meaningful.
+       - We decided for scope that we would just strictly focus on the contact tracing component and come back to "gamifying" the user experience in the future.
 ### Challenges
-- Learning Java (Andrew the only one with some experience)
+- Learning Java (Andrew is currrently the only one with some experience)
 - Use cases 
     - Do we still want to do QR code scanning?
             - Opens possibility for real time capacity checking (confirmed this is an easy implementation with Prof. Couch
@@ -25,7 +28,7 @@ Josefine Tijssen, Andrew Cervantes, Jonathan Vithoontien
             Reference all users by a randomized hash, and only deal with the hashes in the database. Then, when two hashes interact, and one is infected, the other will be notified.
 ### Goals for next week
 - Finalize what the API does
-- Begin a database design working with prof. Couch
+- Begin a database design working with Prof. Couch
 - Begin a front end structure / design (how should it look, what actions should it do, how many pages do we need.
 - Figuring out access (Do we need location, or access to anything from the user?)
 ### Key Decisions
