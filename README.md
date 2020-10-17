@@ -7,34 +7,36 @@ Josefine Tijssen, Andrew Cervantes, Jonathan Vithoontien
 ### Accomplishments:
    - Decided on using Android studio
    - Android Studio Hello World application is underway
+   - Finished most of and then discarded the iOS implementation of Hello World in Swift, as we will be creating an Android app.
    - Confirmation that SQL will work for the database structure
    - Potential storage method/real time query options discussed
-    
+   - Created document highlighting privacy concerns with Covid tracing and how to mitigate them. 
 ### Failures
    - Still don't know what database stores we will need/whether it will be fully supported by the Google.
        - We still can't determine what our overall architecture will be since we don't know our database solution
    - We weren't able to come up with a way to incentize users to engage with our app that was meaningful.
        - We decided for scope that we would just strictly focus on the contact tracing component and come back to "gamifying" the user experience in the future.
-### Challenges
-- Learning Java (Andrew is currrently the only one with some experience)
-- Use cases 
+### Challenges:
+- Learning Java (Andrew is currrently the only one with some experience).
+- Answering use case questions: 
     - Do we still want to do QR code scanning?
-            - Opens possibility for real time capacity checking (confirmed this is an easy implementation with Prof. Couch
-    - How to implement the tap feature
-- Determinining how much the APIs do
-        - This is in progress, will hopefully have a full understanding by 10/23
+            - Opens possibility for real time capacity checking (confirmed this is an easy implementation with Prof. Couch).
+    - How to implement the tap feature when people meet up.
+- Determinining how much the APIs do.
+            - This is in progress, we plan to have a better understanding by 10/23.
 - Determining how to keep data privacy
-    - 1 Potential solution:
-            Reference all users by a randomized hash, and only deal with the hashes in the database. Then, when two hashes interact, and one is infected, the other will be notified.
-### Goals for next week
-- Finalize what the API does
+    - Potential solution:
+            - Reference all users by a randomized hash, and only deal with the hashes in the database. Then, when two hashes interact, and one is infected, the other will be notified.
+### Goals for next week:
+- Finalize what the API does.
+- Finalize design diagram for the API.
 - Begin a database design working with Prof. Couch
 - Begin a front end structure / design (how should it look, what actions should it do, how many pages do we need.
 - Figuring out access (Do we need location, or access to anything from the user?)
-### Key Decisions
-- Any use case besides tracing
-- How much backend is on us vs the APIs
-- A new name (we kinda like Achoo!)
+### Key Decisions:
+- Any use case besides tracing.
+- How much backend is on us vs the APIs.
+- A new name (we kinda like Achoo!).
 
 ## Week 2 10/9/2020
 ### Accomplishments:
