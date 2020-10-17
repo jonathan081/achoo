@@ -33,6 +33,7 @@ Josefine Tijssen, Andrew Cervantes, Jonathan Vithoontien
 - Begin a database design working with Prof. Couch
 - Begin a front end structure / design (how should it look, what actions should it do, how many pages do we need.
 - Figuring out access (Do we need location, or access to anything from the user?)
+- Setting up local environments for everyone to work
 ### Key Decisions:
 - Any use case besides tracing.
 - How much backend is on us vs the APIs.
