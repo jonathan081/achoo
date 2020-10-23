@@ -3,6 +3,29 @@ Josefine Tijssen, Andrew Cervantes, Jonathan Vithoontien
 
 # Engineering Notebook
 
+## Week 4 10/23/2020
+### Accomplishments:
+   - ACHOO! is the final project name.
+   - Further narrowed the end user experience for contact tracing.
+      - API handles all the tracking for us.
+      - No need for QR/NFC transactions.
+   - Determined privacy strategy: We don't deal with it, let Google handle it.
+   - Finished our risk assessment document.
+### Failures:
+   - We underestimated how much the Google exposure API does for the developer already.
+      - The contact-tracing is essentially fully implemented which defeated the purpose of our initial pitch.
+      - In light of this, we are redirecting the project focus to documenting our development experience while also trying tackling the human factors challenge of getting users involved in this.
+### Challenges:
+   - How do we "gamify" meeting people in the context of social distancing?
+   - Given that the contact tracing is done passively, what can we add to our app beyond what Google has already created?
+   - 
+### Goals for Next Week:
+   - Start implementing the exposure API into a mock Android app.
+   - 
+### Key Decisions to be Made:
+   - What is the minimum we have to do to start interacting with the exposure API?
+   - What will our testing methodology be to know that the contact-tracing is working correctly?
+      
 ## Week 3 10/16/2020
 ### Accomplishments:
    - Decided on using Android studio
@@ -14,7 +37,7 @@ Josefine Tijssen, Andrew Cervantes, Jonathan Vithoontien
 ### Failures
    - Still don't know what database stores we will need/whether it will be fully supported by the Google.
        - We still can't determine what our overall architecture will be since we don't know our database solution
-   - We weren't able to come up with a way to incentize users to engage with our app that was meaningful.
+   - We weren't able to come up with a way to incentivize users to engage with our app that was meaningful.
        - We decided for scope that we would just strictly focus on the contact tracing component and come back to "gamifying" the user experience in the future.
 ### Challenges:
 - Learning Java (Andrew is currrently the only one with some experience).
