@@ -1,4 +1,4 @@
-# Achoo (Soon to be changed)
+# ACHOO!
 Josefine Tijssen, Andrew Cervantes, Jonathan Vithoontien
 
 # Engineering Notebook
@@ -16,12 +16,13 @@ Josefine Tijssen, Andrew Cervantes, Jonathan Vithoontien
       - The contact-tracing is essentially fully implemented which defeated the purpose of our initial pitch.
       - In light of this, we are redirecting the project focus to documenting our development experience while also trying tackling the human factors challenge of getting users involved in this.
 ### Challenges:
-   - How do we "gamify" meeting people in the context of social distancing?
    - Given that the contact tracing is done passively, what can we add to our app beyond what Google has already created?
-   - 
+   - How do we "gamify" meeting people in the context of social distancing?
+   - This ties into the above point, but we essentially need to decide how we're going to get a user base.
+      - Either need to socialize/gamify it if we want it in the United States in order for people to willingly share their information.
 ### Goals for Next Week:
    - Start implementing the exposure API into a mock Android app.
-   - 
+   - Discuss with sponsor and possibly reach out to TTS for option of working with Tufts (Thank you Ming!).
 ### Key Decisions to be Made:
    - What is the minimum we have to do to start interacting with the exposure API?
    - What will our testing methodology be to know that the contact-tracing is working correctly?
