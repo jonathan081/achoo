@@ -3,6 +3,26 @@ Josefine Tijssen, Andrew Cervantes, Jonathan Vithoontien
 
 # Engineering Notebook
 
+## Week 5 10/30/2020
+### Accomplishments:
+   - We have decided our use case for the app
+   - We have begun the project
+   - We have established how many app pages we need and what we want to do in terms of color scheme.
+### Failures
+   - Was not able to meet with Alva to talk about new database needs. One of the goals for this week.
+   
+### Challenges:
+   - How is this API to work with?
+         - Can we find a public app or code that utilizes the contact tracing API as an example.
+### Goals for next week:
+   - Start working on connecting the API to the app
+   - Create the barebones pages in order to connect with the API
+   - establish login techniques
+   - Working on the API's (designated out to 1 per person)
+   
+### Key Decisions to be Made:
+   - How are we gonna test this?
+   
 ## Week 4 10/23/2020
 ### Accomplishments:
    - ACHOO! is the final project name.
