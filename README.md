@@ -6,10 +6,11 @@ Josefine Tijssen, Andrew Cervantes, Jonathan Vithoontien
 ## Week 5 10/30/2020
 ### Accomplishments:
    - We have decided our use case for the app
-   - We have begun the project
+   - Coding is underway!
    - We have established how many app pages we need and what we want to do in terms of color scheme.
 ### Failures
    - Was not able to meet with Alva to talk about new database needs. One of the goals for this week.
+   - We could not find any known test methods for this API.
    
 ### Challenges:
    - How is this API to work with?
@@ -17,7 +18,7 @@ Josefine Tijssen, Andrew Cervantes, Jonathan Vithoontien
 ### Goals for next week:
    - Start working on connecting the API to the app
    - Create the barebones pages in order to connect with the API
-   - establish login techniques
+   - Establish login techniques
    - Working on the API's (designated out to 1 per person)
    
 ### Key Decisions to be Made:
