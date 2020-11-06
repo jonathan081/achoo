@@ -2,6 +2,29 @@
 Josefine Tijssen, Andrew Cervantes, Jonathan Vithoontien
 
 # Engineering Notebook
+## Week 6 11/6/2020
+### Accomplishments:
+   - Deployed first template app onto github
+   - Completed design doc overviewing each piece we have to implement
+   - Developed roadmap for what order we will tackle each piece of the app.
+   - Determined testing strategies that we can do locally on devices.
+      - No plans for automated testing yet.
+### Failures
+   - Found out that there now two major servers we will have to deploy ourselves: Key server and Verification Code Server
+   - We now have to implement a two factor authentication system that is administered by a health authority
+      - This is done to verify the legitimacy of a COVID-19 report.
+   - Due to scope, we likely won't be able to implement every verification option that Google outlines.
+   - Barebones app is not complete due to hang ups with the health authority component.
+      - Have to also add a verification page for health authorities.
+### Challenges:
+   - How we will implement the verification code and long-term token verification
+   - Best method of distributing the verification codes to users.
+### Goals for next week:
+   - Continue developing the app to meet all minimum user requirements.
+   - Tinkering with servers to get our key and verification servers ready.
+### Key Decisions to be Made:
+   - What parts of the two factor (if any) will we want to have in the tech demo?
+      - We want to have a usage loop shown for the demo at least.
 
 ## Week 5 10/30/2020
 ### Accomplishments:
