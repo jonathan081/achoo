@@ -2,6 +2,26 @@
 Josefine Tijssen, Andrew Cervantes, Jonathan Vithoontien
 
 # Engineering Notebook
+## Week 7 11/13/2020
+### Accomplishments:
+   - Reworked template app to push notifications correctly.
+   - Investigated app distribution hurdles and regulations
+   - Currently supports bluetooth activation/deactivation.
+   - We have fully outlined all minimum device requirements to maximize device coverage but also support all of our required features
+### Failures
+   - Apple and Google have made strict regulations about contact tracing apps on their eco systems
+      - The app can still be developed, but we will need a medical endorsement for it to go live
+   - Because of challenges around creating our verification server, our early prototype will just deal with pushing notificiations based on proximity rather than a comprehensive medical check-in.
+### Goals for next week:
+   - Complete the rest of the app prototype to generate anonymous IDs for each device when near each other.
+   - Secure android devices to test these features.
+### Key Decisions to be Made:
+   - Our final end game? Do we want this app to go live or just act a launchpad for others to build their products?
+   - What is the most efficient way for us to get the mobile app to push proximity data to our server?
+      - How often should we push? On wifi or cellular or both?
+
+### Challenges
+   - 
 ## Week 6 11/6/2020
 ### Accomplishments:
    - Deployed first template app onto github
