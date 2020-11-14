@@ -21,7 +21,8 @@ Josefine Tijssen, Andrew Cervantes, Jonathan Vithoontien
       - How often should we push? On wifi or cellular or both?
 
 ### Challenges
-   - 
+   - How we will do real world testing with the API?
+   - Will sideloading the app be enough to use the google play service component?
 ## Week 6 11/6/2020
 ### Accomplishments:
    - Deployed first template app onto github
