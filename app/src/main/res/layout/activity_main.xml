@@ -33,8 +33,10 @@
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
+        app:layout_constraintVertical_bias="1.0" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
@@ -46,5 +48,24 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@android:drawable/ic_dialog_email" />
+
+    <Switch
+        android:id="@+id/BLE_Switch"
+        android:layout_width="250dp"
+        android:layout_height="75dp"
+        android:fontFamily="sans-serif"
+        android:text="Toggle Bluetooth"
+        android:textSize="24sp"
+        tools:layout_editor_absoluteX="80dp"
+        tools:layout_editor_absoluteY="114dp" />
+
+    <TextView
+        android:id="@+id/Snack"
+        android:layout_width="182dp"
+        android:layout_height="110dp"
+        android:text="TextView"
+        tools:layout_editor_absoluteX="114dp"
+        tools:layout_editor_absoluteY="310dp" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
