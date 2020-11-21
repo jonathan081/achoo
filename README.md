@@ -2,6 +2,25 @@
 Josefine Tijssen, Andrew Cervantes, Jonathan Vithoontien
 
 # Engineering Notebook
+## Week 8 11/20/2020
+### Accomplishments:
+   - Met with Ming to discuss project direction now that we have established that we might not be able to use the Google contact-tracing API.
+   - Researched the availability of the Nearby Messages API. This API is a publish-subscribe API that enables the exchange of data between devices which are in close proximity of one another by passing small binary payloads between internet-connected Android and iOS devices.
+      - In order to access the API, we need to register the project with the Google Developers Console.
+      - The Nearby Messages API requires user consent. When either publish or subscribe is first invoked, the API will show an opt in dialog.
+      - https://developers.google.com/nearby/developer-guidelines
+   - Creation of detailed document outlining pro's and cons of the Nearby Messages API.
+### Failures
+   - Due to the ambiguity surrounding the API, we only recently discovered that the exposure API is not public and Exposure API is blocked to public. 
+      - Usage of the API requires an extensive application affiliated with a health authority (as we established last week). However, getting this approval is more difficult than we initially anticipated.
+### Goals for next week:
+   - Develop a simple application that uses the Nearby Messages API.
+### Key Decisions to be Made:
+   - Hows will we faciliate the actual contact-tracing without the Exposure API?
+### Challenges
+   - Creating a new design document that does not use the Exposure API.
+   - Facilitating the contact-tracing element of the application without using the Google contact-tracing API.
+
 ## Week 7 11/13/2020
 ### Accomplishments:
    - Reworked template app to push notifications correctly.
@@ -19,10 +38,10 @@ Josefine Tijssen, Andrew Cervantes, Jonathan Vithoontien
    - Our final end game? Do we want this app to go live or just act a launchpad for others to build their products?
    - What is the most efficient way for us to get the mobile app to push proximity data to our server?
       - How often should we push? On wifi or cellular or both?
-
 ### Challenges
    - How we will do real world testing with the API?
    - Will sideloading the app be enough to use the google play service component?
+   
 ## Week 6 11/6/2020
 ### Accomplishments:
    - Deployed first template app onto github
