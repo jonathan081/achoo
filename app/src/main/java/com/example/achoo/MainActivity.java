@@ -1,15 +1,13 @@
 package com.example.achoo;
 
 import android.Manifest;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
+
 import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Switch;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -25,6 +23,7 @@ import com.google.android.gms.nearby.messages.MessageListener;
 import com.google.android.gms.nearby.messages.MessagesClient;
 import com.google.android.gms.nearby.messages.MessagesOptions;
 import com.google.android.gms.nearby.messages.NearbyPermissions;
+import com.google.android.gms.nearby.messages.SubscribeOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -33,45 +32,10 @@ public class MainActivity extends AppCompatActivity {
     private static MessageListener mMessageListener;
     private static Message mMessage;
     private static MessagesClient mMessagesClient;
-
     private static final String TAG = MainActivity.class.getName();
 
-
-
-    private void createNotificationChannel() {
-        // Create the NotificationChannel, but only on API 26+ because
-        // the NotificationChannel class is new and not in the support library
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-
-            CharSequence name = getString(R.string.channel_name);
-            String description = getString(R.string.channel_description);
-            int importance = NotificationManager.IMPORTANCE_DEFAULT;
-            NotificationChannel channel = new NotificationChannel("test", name, importance);
-            channel.setDescription(description);
-            // Register the channel with the system; you can't change the importance
-            // or other notification behaviors after this
-            NotificationManager notificationManager = getSystemService(NotificationManager.class);
-            notificationManager.createNotificationChannel(channel);
-        }
-    }
-
-    private ActivityResultLauncher<String> requestPermissionLauncher =
-            registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
-                if (isGranted){
-                    mMessagesClient = Nearby.getMessagesClient(this, new MessagesOptions.Builder()
-                            .setPermissions(NearbyPermissions.BLE)
-                            .build());
-                } else{
-                    Snackbar mySnackbar = Snackbar.make(findViewById(R.id.Snack), "You can't use our app dummy.", Snackbar.LENGTH_INDEFINITE);
-                    mySnackbar.setAction("DISMISS", new View.OnClickListener(){
-                        @Override
-                        public void onClick(View v){
-                            mySnackbar.dismiss();
-                        }
-                    });
-                    mySnackbar.show();
-                }
-            });
+    private Switch simpleSwitch = (Switch) findViewById(R.id.BLE_Switch);
+    private SubscribeOptions options;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        createNotificationChannel();
+        Notifications.createNotificationChannel(this);
 
         FloatingActionButton fab = findViewById(R.id.fab);
         //fab.setOnClickListener(new View.OnClickListener() {
@@ -89,20 +53,13 @@ public class MainActivity extends AppCompatActivity {
         //                .setAction("Action", null).show();
         //    }
        // });
-        mMessageListener = new MessageListener() {
-            @Override
-            public void onFound(Message message) {
-                Log.d(TAG, "Found message: " + new String(message.getContent()));
-            }
+        mMessageListener =  messageGateway.getMessageListener();
 
-            @Override
-            public void onLost(Message message) {
-                Log.d(TAG, "Lost sight of message: " + new String(message.getContent()));
-            }
-        };
+        mMessage = messageGateway.getNewMessage();
 
-        mMessage = new Message("Hello World".getBytes());
+        options = messageGateway.setSubscribeOptions();
     }
+
 
     @Override
     public void onStart() {
@@ -128,7 +85,23 @@ public class MainActivity extends AppCompatActivity {
         super.onStop();
     }
 
-
+    private ActivityResultLauncher<String> requestPermissionLauncher =
+            registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
+                if (isGranted){
+                    mMessagesClient = Nearby.getMessagesClient(this, new MessagesOptions.Builder()
+                            .setPermissions(NearbyPermissions.BLE)
+                            .build());
+                } else{
+                    Snackbar mySnackbar = Snackbar.make(findViewById(R.id.Snack), "You can't use our app dummy.", Snackbar.LENGTH_INDEFINITE);
+                    mySnackbar.setAction("DISMISS", new View.OnClickListener(){
+                        @Override
+                        public void onClick(View v){
+                            mySnackbar.dismiss();
+                        }
+                    });
+                    mySnackbar.show();
+                }
+            });
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -160,4 +133,26 @@ public class MainActivity extends AppCompatActivity {
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
         notificationManager.notify(1, builder.build());
     }
+
+    public void buttonFlipped(View view) {
+        if (simpleSwitch.isChecked()) {
+            simpleSwitch.setChecked(false);
+            Snackbar mySnackbar = Snackbar.make(findViewById(R.id.Snack), "You can't use our app dummy.", Snackbar.LENGTH_INDEFINITE);
+            mySnackbar.setAction("DISMISS", new View.OnClickListener(){
+                @Override
+                public void onClick(View v){
+                    mySnackbar.dismiss();
+                }
+            });
+            options.getCallback().onExpired();
+            mySnackbar.show();
+            mMessageListener = null;
+        } else {
+            simpleSwitch.setChecked(true);
+            mMessageListener = messageGateway.getMessageListener();
+
+        }
+    }
+
+
 }
