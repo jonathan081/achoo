@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
         //                .setAction("Action", null).show();
         //    }
        // });
-        mMessageListener =  messageGateway.getMessageListener();
+        mMessageListener =  messageGateway.getMessageListener(this);
 
         mMessage = messageGateway.getNewMessage();
 
@@ -80,8 +80,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onStop() {
-        Nearby.getMessagesClient(this).unpublish(mMessage);
-        Nearby.getMessagesClient(this).unsubscribe(mMessageListener);
         super.onStop();
     }
 
@@ -91,6 +89,7 @@ public class MainActivity extends AppCompatActivity {
                     mMessagesClient = Nearby.getMessagesClient(this, new MessagesOptions.Builder()
                             .setPermissions(NearbyPermissions.BLE)
                             .build());
+                    activateNearby();
                 } else{
                     Snackbar mySnackbar = Snackbar.make(findViewById(R.id.Snack), "You can't use our app dummy.", Snackbar.LENGTH_INDEFINITE);
                     mySnackbar.setAction("DISMISS", new View.OnClickListener(){
@@ -136,7 +135,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void buttonFlipped(View view) {
         if (simpleSwitch.isChecked()) {
-            simpleSwitch.setChecked(false);
             Snackbar mySnackbar = Snackbar.make(findViewById(R.id.Snack), "You can't use our app dummy.", Snackbar.LENGTH_INDEFINITE);
             mySnackbar.setAction("DISMISS", new View.OnClickListener(){
                 @Override
@@ -144,15 +142,26 @@ public class MainActivity extends AppCompatActivity {
                     mySnackbar.dismiss();
                 }
             });
-            options.getCallback().onExpired();
             mySnackbar.show();
-            mMessageListener = null;
-        } else {
-            simpleSwitch.setChecked(true);
-            mMessageListener = messageGateway.getMessageListener();
+            deactivateNearby();
 
+        } else {
+            activateNearby();
         }
     }
 
+    private void activateNearby(){
+        simpleSwitch.setChecked(true);
+        mMessageListener = messageGateway.getMessageListener(this);
+        messageGateway.backgroundSubscribe(this);
+        messageGateway.publish("Device is Broadcasting",this);
+    }
 
+    private void deactivateNearby(){
+        simpleSwitch.setChecked(false);
+        options.getCallback().onExpired();
+        mMessageListener = null;
+        Nearby.getMessagesClient(this).unsubscribe(messageGateway.getPendingIntent(this));
+        messageGateway.unpublish(this);
+    }
 }

@@ -6,6 +6,9 @@ import android.app.PendingIntent;
 import android.content.Intent;
 import android.util.Log;
 
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
+
 import com.google.android.gms.nearby.Nearby;
 import com.google.android.gms.nearby.messages.Message;
 import com.google.android.gms.nearby.messages.MessageListener;
@@ -18,12 +21,19 @@ public class messageGateway {
     private static final String TAG = MainActivity.class.getName();
     private Message mActiveMessage;
 
-    public static MessageListener getMessageListener() {
+    public static MessageListener getMessageListener(Activity activity) {
         return new MessageListener() {
             @Override
             public void onFound(Message message) {
                 Log.d(TAG, "Found message: " + new String(message.getContent()));
-                // Probably want to add an action here
+                Log.i(TAG, "Found message via PendingIntent: " + message);
+                NotificationCompat.Builder builder = new NotificationCompat.Builder(activity, "test")
+                        .setSmallIcon(R.drawable.ic_launcher_background)
+                        .setContentTitle("HELLO")
+                        .setContentText("You have been in proximity with another device")
+                        .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+                NotificationManagerCompat notificationManager = NotificationManagerCompat.from(activity);
+                notificationManager.notify(1, builder.build());
             }
 
             @Override
@@ -44,6 +54,35 @@ public class messageGateway {
                 .setCallback(new SubscribeCallback())
                 .build();
     }
+
+    public static PendingIntent getPendingIntent(Activity activity) {
+        return PendingIntent.getBroadcast(activity, 0, new Intent(activity, BeaconMessageReceiver.class),
+                PendingIntent.FLAG_UPDATE_CURRENT);
+    }
+    // Subscribe to messages in the background.
+    public static void backgroundSubscribe(Activity activity) {
+        Log.i(TAG, "Subscribing for background updates.");
+        SubscribeOptions options = new SubscribeOptions.Builder()
+                .setStrategy(Strategy.BLE_ONLY)
+                .build();
+        Nearby.getMessagesClient(activity).subscribe(getPendingIntent(activity), options);
+    }
+
+    public static void publish(String message, Activity activity) {
+        Log.i(TAG, "Publishing message: " + message);
+        mActiveMessage = new Message(message.getBytes());
+        Nearby.getMessagesClient(activity).publish(mActiveMessage);
+    }
+
+    public static void unpublish(Activity activity) {
+        Log.i(TAG, "Unpublishing.");
+        if (mActiveMessage != null) {
+            Nearby.getMessagesClient(activity).unpublish(mActiveMessage);
+            mActiveMessage = null;
+        }
+    }
+
+
     // Subscribe to receive messages.
     private void subscribeForeground(MessageListener mMessageListener, Activity activity) {
         Log.i(TAG, "Subscribing.");
@@ -55,33 +94,6 @@ public class messageGateway {
     private void unsubscribeForeGround(Activity activity, MessageListener mMessageListener) {
         Log.i(TAG, "Unsubscribing.");
         Nearby.getMessagesClient(activity).unsubscribe(mMessageListener);
-    }
-    // Subscribe to messages in the background.
-    private void backgroundSubscribe(Activity activity) {
-        Log.i(TAG, "Subscribing for background updates.");
-        SubscribeOptions options = new SubscribeOptions.Builder()
-                .setStrategy(Strategy.BLE_ONLY)
-                .build();
-        Nearby.getMessagesClient(activity).subscribe(getPendingIntent(activity), options);
-    }
-
-    private PendingIntent getPendingIntent(Activity activity) {
-        return PendingIntent.getBroadcast(activity, 0, new Intent(activity, BeaconMessageReceiver.class),
-                PendingIntent.FLAG_UPDATE_CURRENT);
-    }
-
-    private void publish(String message, Activity activity) {
-        Log.i(TAG, "Publishing message: " + message);
-        mActiveMessage = new Message(message.getBytes());
-        Nearby.getMessagesClient(activity).publish(mActiveMessage);
-    }
-
-    private void unpublish(Activity activity) {
-        Log.i(TAG, "Unpublishing.");
-        if (mActiveMessage != null) {
-            Nearby.getMessagesClient(activity).unpublish(mActiveMessage);
-            mActiveMessage = null;
-        }
     }
 
 }
