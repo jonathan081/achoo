@@ -2,7 +2,7 @@
 Josefine Tijssen, Andrew Cervantes, Jonathan Vithoontien
 
 # Engineering Notebook
-## Week 9 12/10/2020
+## Week 9 & 10 11/21/2020-12/10/2020
 ### Accomplishments:
    - Tested the code we have so far succesfully on actual working Android phones.
    - Provided working proof of concept demo and project status presentation.
