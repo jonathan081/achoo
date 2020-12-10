@@ -2,6 +2,20 @@
 Josefine Tijssen, Andrew Cervantes, Jonathan Vithoontien
 
 # Engineering Notebook
+## Week 9 12/10/2020
+### Accomplishments:
+   - Tested the code we have so far succesfully on actual working Android phones.
+   - Provided working proof of concept demo and project status presentation.
+   - Met 1:1 with Ming to show current proof of concept and discuss future directions.
+### Failures
+   - Cyberpunk 2077 was glitchy.
+### Goals for next week:
+   - Start on linking Android code with database through backend.
+### Key Decisions to be Made:
+   - Should we play cyberpunk alll break?
+### Challenges
+   - Currently the team is split up location-wise due to break. This creates difficulty as Jo does not have any android phone to test the code on.
+
 ## Week 8 11/20/2020
 ### Accomplishments:
    - Met with Ming to discuss project direction now that we have established that we might not be able to use the Google contact-tracing API.
