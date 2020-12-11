@@ -6,13 +6,20 @@ Josefine Tijssen, Andrew Cervantes, Jonathan Vithoontien
 ### Accomplishments:
    - Tested the code we have so far succesfully on actual working Android phones.
    - Provided working proof of concept demo and project status presentation.
+   - Was able to connect to Nearby Messages API
    - Met 1:1 with Ming to show current proof of concept and discuss future directions.
+   - Was able to edit design to work on an actual phone
+   - Enabled notifications and snackbar messages, as well as permissions.
 ### Failures
    - Cyberpunk 2077 was glitchy.
-### Goals for next week:
+   - Was not able to get two phones working, as we could not get LG USB drivers. 
+### Goals for Winter Break:
    - Start on linking Android code with database through backend.
+   - Continue working on the database
+   - Get two phones up and running to test NEARBY system.
 ### Key Decisions to be Made:
    - Should we play cyberpunk alll break?
+   - Database design: triggers vs continous queries.
 ### Challenges
    - Currently the team is split up location-wise due to break. This creates difficulty as Jo does not have any android phone to test the code on.
 
