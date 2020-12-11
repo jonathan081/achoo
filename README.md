@@ -17,6 +17,7 @@ Josefine Tijssen, Andrew Cervantes, Jonathan Vithoontien
    - Start on linking Android code with database through backend.
    - Continue working on the database
    - Get two phones up and running to test NEARBY system.
+   - Improve the look and UI of the app.
 ### Key Decisions to be Made:
    - Should we play cyberpunk alll break?
    - Database design: triggers vs continous queries.
