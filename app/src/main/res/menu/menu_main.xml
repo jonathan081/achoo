@@ -3,8 +3,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.achoo.MainActivity">
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/sign_out"
         android:orderInCategory="100"
-        android:title="@string/action_settings"
-        app:showAsAction="never" />
+        android:title="@string/login"
+        android:icon="@drawable/ic_exit_to_app_white_24dp"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/upload"
+        android:orderInCategory="50"
+        android:title="@string/Upload"
+        android:icon="@drawable/ic_cloud_upload_white_24dp"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/home"
+        android:orderInCategory="1"
+        android:title="@string/homeButton"
+        android:icon="@drawable/ic_home_white_24dp__1_"
+        app:showAsAction="ifRoom" />
 </menu>
