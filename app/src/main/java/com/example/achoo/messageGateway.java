@@ -19,7 +19,7 @@ import com.google.android.gms.nearby.messages.SubscribeOptions;
 
 public class messageGateway {
     private static final String TAG = MainActivity.class.getName();
-    private Message mActiveMessage;
+    private static Message mActiveMessage;
 
     public static MessageListener getMessageListener(Activity activity) {
         return new MessageListener() {

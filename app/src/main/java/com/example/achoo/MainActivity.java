@@ -2,21 +2,25 @@ package com.example.achoo;
 
 import android.Manifest;
 
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.Switch;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 
+import com.example.achoo.ui.login.LoginActivity;
 import com.google.android.gms.nearby.Nearby;
 import com.google.android.gms.nearby.messages.Message;
 import com.google.android.gms.nearby.messages.MessageListener;
@@ -34,25 +38,18 @@ public class MainActivity extends AppCompatActivity {
     private static MessagesClient mMessagesClient;
     private static final String TAG = MainActivity.class.getName();
 
-    private Switch simpleSwitch = (Switch) findViewById(R.id.BLE_Switch);
+    // Switch simpleSwitch = (Switch) findViewById(R.id.BLE_Switch);
     private SubscribeOptions options;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Notifications.createNotificationChannel(this);
 
-        FloatingActionButton fab = findViewById(R.id.fab);
-        //fab.setOnClickListener(new View.OnClickListener() {
-        //    @Override
-        //    public void onClick(View view) {
-        //        Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-        //                .setAction("Action", null).show();
-        //    }
-       // });
         mMessageListener =  messageGateway.getMessageListener(this);
 
         mMessage = messageGateway.getNewMessage();
@@ -89,9 +86,9 @@ public class MainActivity extends AppCompatActivity {
                     mMessagesClient = Nearby.getMessagesClient(this, new MessagesOptions.Builder()
                             .setPermissions(NearbyPermissions.BLE)
                             .build());
-                    activateNearby();
+                    activateNearby((Switch) findViewById(R.id.BLE_Switch));
                 } else{
-                    Snackbar mySnackbar = Snackbar.make(findViewById(R.id.Snack), "You can't use our app dummy.", Snackbar.LENGTH_INDEFINITE);
+                    Snackbar mySnackbar = Snackbar.make(findViewById(R.id.coordinatorLayout), "You can't use our app dummy.", Snackbar.LENGTH_INDEFINITE);
                     mySnackbar.setAction("DISMISS", new View.OnClickListener(){
                         @Override
                         public void onClick(View v){
@@ -116,8 +113,14 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        if (id == R.id.sign_out) {
+            Intent ide = new Intent(MainActivity.this, LoginActivity.class);
+            // ide.putExtra
+            // ide.addFlags ** May be needed **
+            startActivity(ide);
+        }
+        if (id == R.id.upload) {
+            sendToUpload();
         }
 
         return super.onOptionsItemSelected(item);
@@ -134,8 +137,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void buttonFlipped(View view) {
+        Switch simpleSwitch = (Switch) findViewById(R.id.BLE_Switch);
         if (simpleSwitch.isChecked()) {
-            Snackbar mySnackbar = Snackbar.make(findViewById(R.id.Snack), "You can't use our app dummy.", Snackbar.LENGTH_INDEFINITE);
+            Snackbar mySnackbar = Snackbar.make(findViewById(R.id.coordinatorLayout), "You flipped the switch!.", Snackbar.LENGTH_INDEFINITE);
             mySnackbar.setAction("DISMISS", new View.OnClickListener(){
                 @Override
                 public void onClick(View v){
@@ -143,25 +147,33 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
             mySnackbar.show();
-            deactivateNearby();
+            deactivateNearby(simpleSwitch);
 
         } else {
-            activateNearby();
+            activateNearby(simpleSwitch);
+            return;
         }
     }
 
-    private void activateNearby(){
+    private void activateNearby(Switch simpleSwitch){
         simpleSwitch.setChecked(true);
         mMessageListener = messageGateway.getMessageListener(this);
         messageGateway.backgroundSubscribe(this);
         messageGateway.publish("Device is Broadcasting",this);
     }
 
-    private void deactivateNearby(){
+    private void deactivateNearby(Switch simpleSwitch){
         simpleSwitch.setChecked(false);
         options.getCallback().onExpired();
         mMessageListener = null;
         Nearby.getMessagesClient(this).unsubscribe(messageGateway.getPendingIntent(this));
         messageGateway.unpublish(this);
+    }
+
+    public void sendToUpload(){
+        Intent ide = new Intent(MainActivity.this, UploadActivity.class);
+        // ide.putExtra
+        // ide.addFlags ** May be needed **
+        startActivity(ide);
     }
 }
