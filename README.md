@@ -9,7 +9,7 @@ Josefine Tijssen, Andrew Cervantes, Jonathan Vithoontien
    - Researched adding COVID data
    -Database design completed and ran in local environment
       - desided to stay in the confort zone of triggers, could be something to improve upon as a stretch goal.
-    - Set up an AWS RDS server to attatch the database to.
+   - Set up an AWS RDS server to attatch the database to.
 ### Failures
    -Cyberpunk
    -Unable to get COVID charts for additional appeal
