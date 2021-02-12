@@ -11,15 +11,15 @@ Josefine Tijssen, Andrew Cervantes, Jonathan Vithoontien
       - desided to stay in the confort zone of triggers, could be something to improve upon as a stretch goal.
    - Set up an AWS RDS server to attatch the database to.
 ### Failures:
-   -Cyberpunk
-   -Unable to get COVID charts for additional appeal
-   -Unable to do a full test of NEARBY due to dev phone availability/driver issues (looking at you LG)
+   - Cyberpunk
+   - Unable to get COVID charts for additional appeal
+   - Unable to do a full test of NEARBY due to dev phone availability/driver issues (looking at you LG)
    
 ### Goals for next week:
-   -Integration time. 
-      -Server to database design
-      -back end to server
-   -Begin attempts at firebase itegration, we had issues with initial attempts due to it crashing Andrew's computer
+   - Integration time. 
+      - Server to database design
+      - back end to server
+   - Begin attempts at firebase itegration, we had issues with initial attempts due to it crashing Andrew's computer
 ## Week 9 & 10 11/21/2020-12/10/2020
 ### Accomplishments:
    - Tested the code we have so far succesfully on actual working Android phones.
