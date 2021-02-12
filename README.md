@@ -10,7 +10,7 @@ Josefine Tijssen, Andrew Cervantes, Jonathan Vithoontien
    -Database design completed and ran in local environment
       - desided to stay in the confort zone of triggers, could be something to improve upon as a stretch goal.
    - Set up an AWS RDS server to attatch the database to.
-### Failures
+### Failures:
    -Cyberpunk
    -Unable to get COVID charts for additional appeal
    -Unable to do a full test of NEARBY due to dev phone availability/driver issues (looking at you LG)
