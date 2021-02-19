@@ -1,6 +1,8 @@
 plugins {
     id 'com.android.application'
 }
+apply plugin: 'com.android.application'
+apply plugin: 'com.google.gms.google-services'
 
 android {
     compileSdkVersion 30
@@ -84,4 +86,7 @@ dependencies {
     implementation "com.mikepenz:aboutlibraries:8.3.0"
 
     implementation 'com.google.android.gms:play-services-nearby:17.0.0'
+
+    implementation platform('com.google.firebase:firebase-bom:26.5.0')
+    implementation 'com.google.firebase:firebase-analytics'
 }

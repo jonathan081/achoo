@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "756014346240",
+    "firebase_url": "https://achoo-295618.firebaseio.com",
+    "project_id": "achoo-295618",
+    "storage_bucket": "achoo-295618.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:756014346240:android:baa4eb490c9b75ce4c28e5",
+        "android_client_info": {
+          "package_name": "com.example.achoo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "756014346240-sqqm7djpr4c755rh2o3cjitk33474n0f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAwYNpgWUTqi8iPtTglLez2dayWQkh7aeQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "756014346240-sqqm7djpr4c755rh2o3cjitk33474n0f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
