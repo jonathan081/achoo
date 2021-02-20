@@ -7,7 +7,7 @@ Josefine Tijssen, Andrew Cervantes, Jonathan Vithoontien
 ### Accomplishments:
    - Began firebase integration.
    - Connected the database with the AWS Server.
-   - Followed DJANGO tutorial to prepare for backend setup.
+   - Followed DJANGO and Flask tutorial to prepare for backend setup.
 
 ### Goals for next week:
    - Test the bluetooth connections and confirm that it is working.
