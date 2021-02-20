@@ -19,6 +19,7 @@ Josefine Tijssen, Andrew Cervantes, Jonathan Vithoontien
 ### Challenges
    - Firebase was attempted before and did not end well.
    - How are we going to create secure hashes to function as unique identifiers? They must always be unique.
+         - For security purposes, the hashing should be done on the phone/app level and then sent to the backend.
    - Dev phones being dev phones.
 
 ## Week 11 2/5/21-2/12/12
