@@ -5,20 +5,22 @@ Josefine Tijssen, Andrew Cervantes, Jonathan Vithoontien
 
 ## Week 12 2/12/21-2/19/21
 ### Accomplishments:
-   - Began firebase integration
-   - Connected the database with the AWS Server
+   - Began firebase integration.
+   - Connected the database with the AWS Server.
+   - Followed DJANGO tutorial to prepare for backend setup.
 
 ### Goals for next week:
-   - Test the bluetooth connections
-         - confirm it is working
-   - Finish up firebase connections
-         - confirm it is working
+   - Test the bluetooth connections and confirm that it is working.
+   - Finish up the firebase connections and confirm that it is working.
    - Determine how to create a hash that is unique for each device each day.
          - Add whatever libraries needed to the backend to have access to a reliable SHA-256 encryption system.
+   - Connect to the database through the backend and test inserting keys into a table.
+
 ### Challenges
-   - Firebase was attempted before and did not end well
-   - What we are going to hash, it must always be unique
-   - Dev phones being dev phones
+   - Firebase was attempted before and did not end well.
+   - How are we going to create secure hashes to function as unique identifiers? They must always be unique.
+   - Dev phones being dev phones.
+
 ## Week 11 2/5/21-2/12/12
 ### Accomplishments:
    - Cleaned up the front end to make it more simplistic
