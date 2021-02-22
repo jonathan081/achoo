@@ -1,7 +1,9 @@
 package com.example.achoo;
 
 import android.Manifest;
-
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -14,7 +16,6 @@ import android.widget.Switch;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SwitchCompat;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
@@ -28,7 +29,6 @@ import com.google.android.gms.nearby.messages.MessagesClient;
 import com.google.android.gms.nearby.messages.MessagesOptions;
 import com.google.android.gms.nearby.messages.NearbyPermissions;
 import com.google.android.gms.nearby.messages.SubscribeOptions;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
 
@@ -61,9 +61,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
-        Nearby.getMessagesClient(this).publish(mMessage);
-        Nearby.getMessagesClient(this).subscribe(mMessageListener);
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED
+            && ContextCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH)
                 == PackageManager.PERMISSION_GRANTED) {
             mMessagesClient = Nearby.getMessagesClient(this, new MessagesOptions.Builder()
                     .setPermissions(NearbyPermissions.BLE)
@@ -72,7 +72,22 @@ public class MainActivity extends AppCompatActivity {
         else{
             requestPermissionLauncher.launch(
                     Manifest.permission.ACCESS_FINE_LOCATION);
+            requestPermissionLauncher.launch(
+                    Manifest.permission.BLUETOOTH);
         }
+
+        final BluetoothManager bluetoothManager =
+                (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
+        BluetoothAdapter bluetoothAdapter = bluetoothManager.getAdapter();
+
+        Nearby.getMessagesClient(this).publish(mMessage);
+        Nearby.getMessagesClient(this).subscribe(mMessageListener);
+
+        mMessageListener =  messageGateway.getMessageListener(this);
+
+        mMessage = messageGateway.getNewMessage();
+
+        options = messageGateway.setSubscribeOptions();
     }
 
     @Override
@@ -138,7 +153,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void buttonFlipped(View view) {
         Switch simpleSwitch = (Switch) findViewById(R.id.BLE_Switch);
-        if (simpleSwitch.isChecked()) {
+        if (!simpleSwitch.isChecked()) {
             Snackbar mySnackbar = Snackbar.make(findViewById(R.id.coordinatorLayout), "You flipped the switch!.", Snackbar.LENGTH_INDEFINITE);
             mySnackbar.setAction("DISMISS", new View.OnClickListener(){
                 @Override
@@ -156,14 +171,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void activateNearby(Switch simpleSwitch){
-        simpleSwitch.setChecked(true);
         mMessageListener = messageGateway.getMessageListener(this);
-        messageGateway.backgroundSubscribe(this);
+        messageGateway.backgroundSubscribe(this, mMessageListener);
         messageGateway.publish("Device is Broadcasting",this);
     }
 
     private void deactivateNearby(Switch simpleSwitch){
-        simpleSwitch.setChecked(false);
         options.getCallback().onExpired();
         mMessageListener = null;
         Nearby.getMessagesClient(this).unsubscribe(messageGateway.getPendingIntent(this));

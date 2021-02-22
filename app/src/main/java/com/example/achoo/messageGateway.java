@@ -60,18 +60,18 @@ public class messageGateway {
                 PendingIntent.FLAG_UPDATE_CURRENT);
     }
     // Subscribe to messages in the background.
-    public static void backgroundSubscribe(Activity activity) {
-        Log.i(TAG, "Subscribing for background updates.");
+    public static void backgroundSubscribe(Activity activity, MessageListener mMessageListener) {
         SubscribeOptions options = new SubscribeOptions.Builder()
-                .setStrategy(Strategy.BLE_ONLY)
+                .setStrategy(Strategy.DEFAULT)
                 .build();
-        Nearby.getMessagesClient(activity).subscribe(getPendingIntent(activity), options);
+        Nearby.getMessagesClient(activity).subscribe(mMessageListener, options);
+        Log.i(TAG, "Subscribing for background updates.");
     }
 
     public static void publish(String message, Activity activity) {
-        Log.i(TAG, "Publishing message: " + message);
         mActiveMessage = new Message(message.getBytes());
         Nearby.getMessagesClient(activity).publish(mActiveMessage);
+        Log.i(TAG, "Publishing message: " + message);
     }
 
     public static void unpublish(Activity activity) {
