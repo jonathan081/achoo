@@ -52,7 +52,9 @@ public class MainActivity extends AppCompatActivity {
 
         mMessageListener =  messageGateway.getMessageListener(this);
 
-        mMessage = messageGateway.getNewMessage();
+       mMessage = messageGateway.getNewMessage();
+
+        mMessage = new Message("Hello World".getBytes());
 
         options = messageGateway.setSubscribeOptions();
     }
@@ -80,9 +82,6 @@ public class MainActivity extends AppCompatActivity {
                 (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
         BluetoothAdapter bluetoothAdapter = bluetoothManager.getAdapter();
 
-        Nearby.getMessagesClient(this).publish(mMessage);
-        Nearby.getMessagesClient(this).subscribe(mMessageListener);
-
         mMessageListener =  messageGateway.getMessageListener(this);
 
         mMessage = messageGateway.getNewMessage();
@@ -92,6 +91,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onStop() {
+        //Nearby.getMessagesClient(this).unpublish(mMessage);
+        //Nearby.getMessagesClient(this).unsubscribe(mMessageListener);
         super.onStop();
     }
 
