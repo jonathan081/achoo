@@ -19,6 +19,7 @@ Josefine Tijssen, Andrew Cervantes, Jonathan Vithoontien
 
 ### Challenges
    - AWS requires Python 3.6 instead of Python 3.8. Circumvented this by creating a virtual 3.6 environment.
+   - Deploying the backend code in AWS so that it doesn't run locally --> AWS elastic beanstalk?
    - How are we going to create secure hashes to function as unique identifiers? They must always be unique.
       - For security purposes, the hashing should be done on the phone/app level and then sent to the backend.
 
