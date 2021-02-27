@@ -6,8 +6,9 @@ Josefine Tijssen, Andrew Cervantes, Jonathan Vithoontien
 ## Week 13 2/19/21-2/26/21
 ### Accomplishments:
    - Succesfully had two phones communicate with one another through Nearby Messages API.
-   - Usage of psycopg2, an open-source PostgreSQL driver for Python, to establish initial connection with the database.
+   - Usage of psycopg2, an open-source PostgreSQL driver for Python, to successfully establish initial connection with the database.
       - https://www.psycopg.org/docs/
+   - Created the database tables and successfully inserted and retrieved information from the tables.
    - Had official capstone standup and met with Ming to discuss progress.
    - Discussed capstone progress with Tufts CS EAB Meeting.
 
