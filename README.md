@@ -11,11 +11,15 @@ Josefine Tijssen, Andrew Cervantes, Jonathan Vithoontien
    - Created the database tables and successfully inserted and retrieved information from the tables.
    - Had official capstone standup and met with Ming to discuss progress.
    - Discussed capstone progress with Tufts CS EAB Meeting.
+   - Confirmed NEARBY connection on multiple devices
+   - Able to give notifications to phones on connection found.
 
 ### Goals for next week:
    - On the app-development side, implement the generation of secure hashes to function as unique keys to identify users.
    - Attempt transmitting data from app to backend.
    - Start receiving data from phones and processing it using Python Flask.
+   - Create a connection lost event to make sure it works as we think.
+   - Implement a rolling hash.
 
 ### Challenges
    - AWS requires Python 3.6 instead of Python 3.8. Circumvented this by creating a virtual 3.6 environment.
