@@ -7,7 +7,7 @@ Josefine Tijssen, Andrew Cervantes, Jonathan Vithoontien
 ### Accomplishments:
    - Succesfully had two phones communicate with one another through Nearby Messages API.
    - Usage of psycopg2, an open-source PostgreSQL driver for Python, to establish initial connection with the database.
-         - https://www.psycopg.org/docs/
+      - https://www.psycopg.org/docs/
    - Had official capstone standup and met with Ming to discuss progress.
    - Discussed capstone progress with Tufts CS EAB Meeting.
 
@@ -19,7 +19,7 @@ Josefine Tijssen, Andrew Cervantes, Jonathan Vithoontien
 ### Challenges
    - AWS requires Python 3.6 instead of Python 3.8. Circumvented this by creating a virtual 3.6 environment.
    - How are we going to create secure hashes to function as unique identifiers? They must always be unique.
-         - For security purposes, the hashing should be done on the phone/app level and then sent to the backend.
+      - For security purposes, the hashing should be done on the phone/app level and then sent to the backend.
 
 ## Week 12 2/12/21-2/19/21
 ### Accomplishments:
@@ -31,7 +31,7 @@ Josefine Tijssen, Andrew Cervantes, Jonathan Vithoontien
    - Test the bluetooth connections and confirm that it is working.
    - Finish up the firebase connections and confirm that it is working.
    - Determine how to create a hash that is unique for each device each day.
-         - Add whatever libraries needed to the backend to have access to a reliable SHA-256 encryption system.
+      - Add whatever libraries needed to the backend to have access to a reliable SHA-256 encryption system.
    - Connect to the database through the backend and test inserting keys into a table.
 
 ### Challenges
