@@ -43,8 +43,8 @@ Josefine Tijssen, Andrew Cervantes, Jonathan Vithoontien
    - Cleaned up the front end to make it more simplistic
    - Set up mutliple activities, and set up navigation between them.
    - Researched adding COVID data
-   -Database design completed and ran in local environment
-      - desided to stay in the confort zone of triggers, could be something to improve upon as a stretch goal.
+   - Database design completed and ran in local environment
+      - Decided to stay in the confort zone of triggers, could be something to improve upon as a stretch goal.
    - Set up an AWS RDS server to attatch the database to.
 ### Failures:
    - Cyberpunk
