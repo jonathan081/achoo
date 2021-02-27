@@ -3,6 +3,24 @@ Josefine Tijssen, Andrew Cervantes, Jonathan Vithoontien
 
 # Engineering Notebook
 
+## Week 13 2/19/21-2/26/21
+### Accomplishments:
+   - Succesfully had two phones communicate with one another through Nearby Messages API.
+   - Usage of psycopg2, an open-source PostgreSQL driver for Python, to establish initial connection with the database.
+         - https://www.psycopg.org/docs/
+   - Had official capstone standup and met with Ming to discuss progress.
+   - Discussed capstone progress with Tufts CS EAB Meeting.
+
+### Goals for next week:
+   - On the app-development side, implement the generation of secure hashes to function as unique keys to identify users.
+   - Attempt transmitting data from app to backend.
+   - Start receiving data from phones and processing it using Python Flask.
+
+### Challenges
+   - AWS requires Python 3.6 instead of Python 3.8. Circumvented this by creating a virtual 3.6 environment.
+   - How are we going to create secure hashes to function as unique identifiers? They must always be unique.
+         - For security purposes, the hashing should be done on the phone/app level and then sent to the backend.
+
 ## Week 12 2/12/21-2/19/21
 ### Accomplishments:
    - Began firebase integration.
@@ -18,8 +36,6 @@ Josefine Tijssen, Andrew Cervantes, Jonathan Vithoontien
 
 ### Challenges
    - Firebase was attempted before and did not end well.
-   - How are we going to create secure hashes to function as unique identifiers? They must always be unique.
-         - For security purposes, the hashing should be done on the phone/app level and then sent to the backend.
    - Dev phones being dev phones.
 
 ## Week 11 2/5/21-2/12/12
@@ -39,7 +55,8 @@ Josefine Tijssen, Andrew Cervantes, Jonathan Vithoontien
    - Integration time. 
       - Server to database design
       - back end to server
-   - Begin attempts at firebase itegration, we had issues with initial attempts due to it crashing Andrew's computer
+   - Begin attempts at firebase itegration, we had issues with initial attempts due to it crashing Andrew's computer.
+
 ## Week 9 & 10 11/21/2020-12/10/2020
 ### Accomplishments:
    - Tested the code we have so far succesfully on actual working Android phones.
