@@ -20,6 +20,8 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
+import androidx.work.PeriodicWorkRequest;
+import androidx.work.WorkManager;
 
 import com.example.achoo.ui.login.LoginActivity;
 import com.google.android.gms.nearby.Nearby;
@@ -30,6 +32,8 @@ import com.google.android.gms.nearby.messages.MessagesOptions;
 import com.google.android.gms.nearby.messages.NearbyPermissions;
 import com.google.android.gms.nearby.messages.SubscribeOptions;
 import com.google.android.material.snackbar.Snackbar;
+
+import java.util.concurrent.TimeUnit;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -57,6 +61,16 @@ public class MainActivity extends AppCompatActivity {
         mMessage = new Message("Hello World".getBytes());
 
         options = messageGateway.setSubscribeOptions();
+
+        PeriodicWorkRequest workerRequest =
+                new PeriodicWorkRequest.Builder(UploadWorker.class,
+                        24, TimeUnit.HOURS, 30, TimeUnit.MINUTES)
+                        .setInitialDelay(24, TimeUnit.HOURS)
+                        .build();
+
+        WorkManager
+                .getInstance(this)
+                .enqueue(workerRequest);
     }
 
 

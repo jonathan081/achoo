@@ -39,6 +39,13 @@ public class messageGateway {
             @Override
             public void onLost(Message message) {
                 Log.d(TAG, "Lost sight of message: " + new String(message.getContent()));
+                NotificationCompat.Builder builder = new NotificationCompat.Builder(activity, "test")
+                        .setSmallIcon(R.drawable.ic_launcher_background)
+                        .setContentTitle("HELLO")
+                        .setContentText("You have lost connection with a nearby device.")
+                        .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+                NotificationManagerCompat notificationManager = NotificationManagerCompat.from(activity);
+                notificationManager.notify(1, builder.build());
             }
         };
     }
