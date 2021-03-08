@@ -8,10 +8,8 @@ import androidx.work.WorkerParameters;
 
 import java.util.Calendar;
 import java.util.Date;
-import java.util.UUID;
 
 public class UploadWorker extends Worker {
-    private static final String uniqueID = UUID.randomUUID().toString();
     public static String currKey;
 
     public UploadWorker(
@@ -37,6 +35,6 @@ public class UploadWorker extends Worker {
     private String getNewKey(){
         //generate random key based on device fingerprint???
         Date currentTime = Calendar.getInstance().getTime();
-        return org.apache.commons.codec.digest.DigestUtils.sha256Hex(currentTime.toString() + uniqueID);
+        return org.apache.commons.codec.digest.DigestUtils.sha256Hex("filler text to be changed");
     }
 }
