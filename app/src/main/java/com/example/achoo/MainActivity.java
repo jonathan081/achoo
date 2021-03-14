@@ -32,6 +32,7 @@ import com.google.android.gms.nearby.messages.MessagesOptions;
 import com.google.android.gms.nearby.messages.NearbyPermissions;
 import com.google.android.gms.nearby.messages.SubscribeOptions;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.concurrent.TimeUnit;
 
@@ -147,6 +148,7 @@ public class MainActivity extends AppCompatActivity {
             Intent ide = new Intent(MainActivity.this, LoginActivity.class);
             // ide.putExtra
             // ide.addFlags ** May be needed **
+            FirebaseAuth.getInstance().signOut();
             startActivity(ide);
         }
         if (id == R.id.upload) {
