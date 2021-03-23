@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -37,10 +36,9 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     public void onCreate (Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_login);
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken("756014346240-snkaqbdgbrush40jd0p8l59u71dev4lb.apps.googleusercontent.com")
+                .requestIdToken("")
                 .requestEmail()
                 .build();
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
@@ -144,14 +142,9 @@ public class LoginActivity extends AppCompatActivity {
         });
     }*/
 
-
-    private void onClick(View v){
-        switch (v.getId()) {
-            case R.id.sign_in_button:
-                signIn();
-                break;
-            // ...
-        }
+    public void onClick(View v) {
+        Log.d(TAG, "onClickLoginSuccess");
+        signIn();
     }
 
     private void signIn(){
