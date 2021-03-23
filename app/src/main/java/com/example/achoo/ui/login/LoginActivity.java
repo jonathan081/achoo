@@ -59,7 +59,8 @@ public class LoginActivity extends AppCompatActivity {
     public void onStart (){
         super.onStart();
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
-        sendToMain();
+        if (account != null)
+            sendToMain();
     }
 
 
