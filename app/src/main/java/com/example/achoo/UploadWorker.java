@@ -29,6 +29,10 @@ public class UploadWorker extends Worker {
         return Result.success();
     }
 
+    public static String getCurrKey() {
+        return currKey;
+    }
+
     public void createFirstKey(){
         String key = getNewKey();
         //call backend func for keygen.
