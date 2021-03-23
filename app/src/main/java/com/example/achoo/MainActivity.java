@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,6 +16,7 @@ import android.widget.Switch;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.NotificationCompat;
@@ -24,6 +26,9 @@ import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkManager;
 
 import com.example.achoo.ui.login.LoginActivity;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.nearby.Nearby;
 import com.google.android.gms.nearby.messages.Message;
 import com.google.android.gms.nearby.messages.MessageListener;
@@ -31,8 +36,9 @@ import com.google.android.gms.nearby.messages.MessagesClient;
 import com.google.android.gms.nearby.messages.MessagesOptions;
 import com.google.android.gms.nearby.messages.NearbyPermissions;
 import com.google.android.gms.nearby.messages.SubscribeOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
-import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.concurrent.TimeUnit;
 
@@ -42,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
     private static Message mMessage;
     private static MessagesClient mMessagesClient;
     private static final String TAG = MainActivity.class.getName();
-
+    GoogleSignInClient mGoogleSignInClient;
     // Switch simpleSwitch = (Switch) findViewById(R.id.BLE_Switch);
     private SubscribeOptions options;
 
@@ -54,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Notifications.createNotificationChannel(this);
-
+        GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
         mMessageListener =  messageGateway.getMessageListener(this);
 
        mMessage = messageGateway.getNewMessage();
@@ -138,24 +144,29 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+        // Handle action bar item clicks here.
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.sign_out) {
-            Intent ide = new Intent(MainActivity.this, LoginActivity.class);
-            // ide.putExtra
-            // ide.addFlags ** May be needed **
-            FirebaseAuth.getInstance().signOut();
-            startActivity(ide);
+            mGoogleSignInClient.signOut()
+                    .addOnCompleteListener(this, new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            Log.d(TAG, "Signed out Successfully");
+                            Intent ide = new Intent(MainActivity.this, LoginActivity.class);
+                            startActivity(ide);
+                        }
+                    });
+
         }
+
         if (id == R.id.upload) {
             sendToUpload();
         }
 
         return super.onOptionsItemSelected(item);
+
     }
 
     public void sendMessage(View view) {

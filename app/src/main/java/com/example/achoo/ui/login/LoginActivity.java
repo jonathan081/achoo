@@ -30,7 +30,7 @@ import com.google.firebase.auth.GoogleAuthProvider;
 public class LoginActivity extends AppCompatActivity {
 
     //private LoginViewModel loginViewModel;
-    private GoogleSignInClient mGoogleSignInClient;
+    GoogleSignInClient mGoogleSignInClient;
     private static final String TAG = LoginActivity.class.getName();
     private int RC_SIGN_IN = 0;
     @Override
