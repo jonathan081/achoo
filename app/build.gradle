@@ -1,8 +1,13 @@
 plugins {
     id 'com.android.application'
+    id 'pmd'
+    id 'com.novoda.static-analysis'
 }
 apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'
+
+apply plugin: 'com.google.firebase.crashlytics'
+apply plugin: 'pmd'
 
 android {
     compileSdkVersion 30
@@ -39,6 +44,10 @@ android {
         exclude 'META-INF/notice.txt'
         exclude 'META-INF/ASL2.0'
         exclude("META-INF/*.kotlin_module")
+    }
+
+    lintOptions {
+        abortOnError false
     }
 }
 
@@ -98,6 +107,12 @@ dependencies {
     implementation 'com.google.firebase:firebase-analytics'
     implementation 'com.google.firebase:firebase-auth'
     implementation 'com.google.firebase:firebase-firestore'
+    implementation 'com.google.firebase:firebase-crashlytics'
 
     implementation 'com.google.android.gms:play-services-nearby:17.0.0'
+}
+
+staticAnalysis {
+    penalty none
+    pmd { toolVersion '6.0.1'}
 }
