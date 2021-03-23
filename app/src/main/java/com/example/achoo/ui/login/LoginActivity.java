@@ -58,6 +58,8 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     public void onStart (){
         super.onStart();
+        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
+        sendToMain();
     }
 
 
