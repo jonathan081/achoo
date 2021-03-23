@@ -40,6 +40,7 @@ import com.google.android.gms.nearby.messages.SubscribeOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.concurrent.TimeUnit;
 
@@ -52,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
     GoogleSignInClient mGoogleSignInClient;
     // Switch simpleSwitch = (Switch) findViewById(R.id.BLE_Switch);
     private SubscribeOptions options;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,9 +67,13 @@ public class MainActivity extends AppCompatActivity {
 
         GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+        mAuth = FirebaseAuth.getInstance();
+
+
         mMessageListener =  messageGateway.getMessageListener(this);
 
        mMessage = messageGateway.getNewMessage();
@@ -151,14 +157,12 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+        // Handle action bar item clicks here.
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.sign_out) {
-            mGoogleSignInClient.signOut()
+             mGoogleSignInClient.signOut()
                     .addOnCompleteListener(this, new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
@@ -167,7 +171,6 @@ public class MainActivity extends AppCompatActivity {
                             startActivity(ide);
                         }
                     });
-
         }
 
         if (id == R.id.upload) {
