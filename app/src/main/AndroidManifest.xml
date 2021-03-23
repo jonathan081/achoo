@@ -42,20 +42,20 @@
         <activity
             android:name=".ui.login.LoginActivity"
             android:label="">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <meta-data
             android:name="com.google.android.nearby.messages.API_KEY"
-            android:value="" />
+            android:value="AIzaSyCSnoKl-DoMLR0OvpZ-XugGE7c5NW2wblI" />
 
         <activity
             android:name=".MainActivity"
             android:label="@string/empty"
             android:theme="@style/Theme.Achoo.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 

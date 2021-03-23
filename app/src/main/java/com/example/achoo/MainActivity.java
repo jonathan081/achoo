@@ -23,7 +23,6 @@ import androidx.core.content.ContextCompat;
 import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkManager;
 
-import com.example.achoo.ui.login.LoginActivity;
 import com.google.android.gms.nearby.Nearby;
 import com.google.android.gms.nearby.messages.Message;
 import com.google.android.gms.nearby.messages.MessageListener;
@@ -32,7 +31,6 @@ import com.google.android.gms.nearby.messages.MessagesOptions;
 import com.google.android.gms.nearby.messages.NearbyPermissions;
 import com.google.android.gms.nearby.messages.SubscribeOptions;
 import com.google.android.material.snackbar.Snackbar;
-import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.concurrent.TimeUnit;
 
@@ -144,18 +142,20 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.sign_out) {
+        /*if (id == R.id.sign_out) {
             Intent ide = new Intent(MainActivity.this, LoginActivity.class);
             // ide.putExtra
             // ide.addFlags ** May be needed **
             FirebaseAuth.getInstance().signOut();
             startActivity(ide);
         }
+        */
         if (id == R.id.upload) {
             sendToUpload();
         }
 
         return super.onOptionsItemSelected(item);
+
     }
 
     public void sendMessage(View view) {
