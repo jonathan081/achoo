@@ -45,7 +45,7 @@ import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity {
     private static MessageListener mMessageListener;
-    private static MessagesClient mMessagesClient;
+    private MessagesClient mMessagesClient;
     private static final String TAG = MainActivity.class.getName();
     GoogleSignInClient mGoogleSignInClient;
     // Switch simpleSwitch = (Switch) findViewById(R.id.BLE_Switch);

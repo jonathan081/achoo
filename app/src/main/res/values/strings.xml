@@ -32,4 +32,6 @@
     <string name="login">Sign Out</string>
     <string name="achoo">Achoo!</string>
     <string name="empty" />
+    <string name="edit_hint">edit</string>
+    <string name="upload_file">uploadPdf</string>
 </resources>
