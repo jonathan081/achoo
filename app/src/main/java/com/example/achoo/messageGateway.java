@@ -52,7 +52,7 @@ public class messageGateway {
 
 
     public static Message getNewMessage() {
-        return new Message("Hello World".getBytes());
+        return new Message(UploadWorker.getCurrKey().getBytes());
     }
 
     public static SubscribeOptions setSubscribeOptions(){
@@ -75,10 +75,10 @@ public class messageGateway {
         Log.i(TAG, "Subscribing for background updates.");
     }
 
-    public static void publish(String message, Activity activity) {
-        mActiveMessage = new Message(message.getBytes());
+    public static void publish(Activity activity) {
+        mActiveMessage = getNewMessage();
         Nearby.getMessagesClient(activity).publish(mActiveMessage);
-        Log.i(TAG, "Publishing message: " + message);
+        Log.i(TAG, "Publishing message");
     }
 
     public static void unpublish(Activity activity) {

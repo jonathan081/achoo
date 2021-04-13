@@ -19,8 +19,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
+
 import androidx.core.content.ContextCompat;
 import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkManager;
@@ -31,7 +30,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.nearby.Nearby;
-import com.google.android.gms.nearby.messages.Message;
 import com.google.android.gms.nearby.messages.MessageListener;
 import com.google.android.gms.nearby.messages.MessagesClient;
 import com.google.android.gms.nearby.messages.MessagesOptions;
@@ -47,7 +45,6 @@ import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity {
     private static MessageListener mMessageListener;
-    private static Message mMessage;
     private static MessagesClient mMessagesClient;
     private static final String TAG = MainActivity.class.getName();
     GoogleSignInClient mGoogleSignInClient;
@@ -72,13 +69,8 @@ public class MainActivity extends AppCompatActivity {
                 .build();
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
         mAuth = FirebaseAuth.getInstance();
-
-
+        
         mMessageListener =  messageGateway.getMessageListener(this);
-
-       mMessage = messageGateway.getNewMessage();
-
-        mMessage = new Message("Hello World".getBytes());
 
         options = messageGateway.setSubscribeOptions();
 
@@ -87,7 +79,6 @@ public class MainActivity extends AppCompatActivity {
                         24, TimeUnit.HOURS, 30, TimeUnit.MINUTES)
                         .setInitialDelay(24, TimeUnit.HOURS)
                         .build();
-
         WorkManager
                 .getInstance(this)
                 .enqueue(workerRequest);
@@ -118,8 +109,6 @@ public class MainActivity extends AppCompatActivity {
 
         mMessageListener =  messageGateway.getMessageListener(this);
 
-        mMessage = messageGateway.getNewMessage();
-
         options = messageGateway.setSubscribeOptions();
     }
 
@@ -138,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
                             .build());
                     activateNearby((Switch) findViewById(R.id.BLE_Switch));
                 } else{
-                    Snackbar mySnackbar = Snackbar.make(findViewById(R.id.coordinatorLayout), "You can't use our app dummy.", Snackbar.LENGTH_INDEFINITE);
+                    Snackbar mySnackbar = Snackbar.make(findViewById(R.id.coordinatorLayout), "App Requires Location Services", Snackbar.LENGTH_INDEFINITE);
                     mySnackbar.setAction("DISMISS", new View.OnClickListener(){
                         @Override
                         public void onClick(View v){
@@ -176,25 +165,13 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.upload) {
             sendToUpload();
         }
-
         return super.onOptionsItemSelected(item);
-
-    }
-
-    public void sendMessage(View view) {
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "test")
-                .setSmallIcon(R.drawable.ic_launcher_background)
-                .setContentTitle("YO dawg, you have COVID")
-                .setContentText("Sike, you got played kid")
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
-        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
-        notificationManager.notify(1, builder.build());
     }
 
     public void buttonFlipped(View view) {
         Switch simpleSwitch = (Switch) findViewById(R.id.BLE_Switch);
         if (!simpleSwitch.isChecked()) {
-            Snackbar mySnackbar = Snackbar.make(findViewById(R.id.coordinatorLayout), "You flipped the switch!.", Snackbar.LENGTH_INDEFINITE);
+            Snackbar mySnackbar = Snackbar.make(findViewById(R.id.coordinatorLayout), "Location Services turned off", Snackbar.LENGTH_INDEFINITE);
             mySnackbar.setAction("DISMISS", new View.OnClickListener(){
                 @Override
                 public void onClick(View v){
@@ -209,11 +186,14 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
     }
+    public void uploadButton(View view) {
+        sendToUpload();
+    }
 
     private void activateNearby(Switch simpleSwitch){
         mMessageListener = messageGateway.getMessageListener(this);
         messageGateway.backgroundSubscribe(this, mMessageListener);
-        messageGateway.publish("Device is Broadcasting",this);
+        messageGateway.publish(this);
     }
 
     private void deactivateNearby(Switch simpleSwitch){

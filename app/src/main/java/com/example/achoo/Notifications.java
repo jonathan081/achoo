@@ -15,7 +15,7 @@ public class Notifications {
             CharSequence name = activity.getString(R.string.channel_name);
             String description = activity.getString(R.string.channel_description);
             int importance = NotificationManager.IMPORTANCE_DEFAULT;
-            NotificationChannel channel = new NotificationChannel("test", name, importance);
+            NotificationChannel channel = new NotificationChannel("notif", name, importance);
             channel.setDescription(description);
             // Register the channel with the system; you can't change the importance
             // or other notification behaviors after this
