@@ -44,7 +44,6 @@ def remove_user():
     db.establish_connection()
     db.execute_query("DELETE FROM pairs WHERE dev1 = %s", (user_key,))
     db.execute_query("DELETE FROM pairs WHERE dev2 = %s", (user_key,))
-    db.execute_query("DELETE FROM tests WHERE key = %s", (user_key,))
     db.execute_query("DELETE FROM infected WHERE key = %s", (user_key,))
     db.execute_query("DELETE FROM curr_keys WHERE curr_key = %s", (user_key,))
     db.close_connection()

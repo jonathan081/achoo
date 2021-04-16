@@ -59,7 +59,6 @@ class Database:
             cur = self.connection.cursor()
             cur.execute("TRUNCATE TABLE infected")
             cur.execute("TRUNCATE TABLE pairs")
-            cur.execute("TRUNCATE TABLE tests")
             cur.execute("TRUNCATE TABLE curr_keys")
             cur.close()
         else:
