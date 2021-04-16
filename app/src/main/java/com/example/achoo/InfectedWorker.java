@@ -10,11 +10,11 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.UUID;
 
-public class UploadWorker extends Worker {
+public class InfectedWorker extends Worker {
     private static final String uniqueID = UUID.randomUUID().toString();
     public static String currKey;
 
-    public UploadWorker(
+    public InfectedWorker(
             @NonNull Context context,
             @NonNull WorkerParameters params) {
         super(context, params);
@@ -22,7 +22,7 @@ public class UploadWorker extends Worker {
 
     @Override
     public Result doWork() {
-        String currKey = UploadWorker.getCurrKey;
+        String currKey = UploadWorker.getCurrKey();
         //call backend to modify key here.
         // Indicate whether the work finished successfully with the Result
         return Result.success();
