@@ -1,6 +1,7 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 import database
 from config import config_db
+from datetime import datetime, timezone
 
 app = Flask(__name__)
 
@@ -72,6 +73,11 @@ def user_status():
     cur.close()
     db.close_connection()
     return status
+
+
+@app.route('/')
+def main():
+    return "Index page"
 
 
 if __name__ == '__main__':
