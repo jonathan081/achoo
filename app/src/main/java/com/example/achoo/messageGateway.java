@@ -5,6 +5,9 @@ import android.app.Activity;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.util.Log;
+
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Date;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
@@ -23,7 +26,7 @@ public class messageGateway {
 
     public static MessageListener getMessageListener(Activity activity) {
         return new MessageListener() {
-            private LocalDateTime currTime;
+            private LocalTime currTime;
             @Override
             public void onFound(Message message) {
                 Log.d(TAG, "Found message: " + new String(message.getContent()));
@@ -48,11 +51,10 @@ public class messageGateway {
                         .setPriority(NotificationCompat.PRIORITY_DEFAULT);
                 NotificationManagerCompat notificationManager = NotificationManagerCompat.from(activity);
                 notificationManager.notify(1, builder.build());
-                String mssg = message.getContent();
+                String msg = new String(message.getContent());
                 String ourKey = UploadWorker.getCurrKey();
                 int diff = LocalTime.now().compareTo(currTime);
                 if (diff > 15) {
-                    pass;
                     // Call the backend here
                 }
             }
