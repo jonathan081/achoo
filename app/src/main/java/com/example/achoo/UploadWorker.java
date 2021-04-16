@@ -35,7 +35,8 @@ public class UploadWorker extends Worker {
 
     public void createFirstKey(){
         String key = getNewKey();
-        //call backend func for keygen.
+        currKey = key;
+        FlaskGateway.newUser();
     }
 
     private String getNewKey(){
