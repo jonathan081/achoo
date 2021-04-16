@@ -74,14 +74,23 @@ public class MainActivity extends AppCompatActivity {
 
         options = messageGateway.setSubscribeOptions();
 
-        PeriodicWorkRequest workerRequest =
+        PeriodicWorkRequest workerRequestKey =
                 new PeriodicWorkRequest.Builder(UploadWorker.class,
                         24, TimeUnit.HOURS, 30, TimeUnit.MINUTES)
                         .setInitialDelay(24, TimeUnit.HOURS)
                         .build();
         WorkManager
                 .getInstance(this)
-                .enqueue(workerRequest);
+                .enqueue(workerRequestKey);
+
+        PeriodicWorkRequest workerRequestInf =
+                new PeriodicWorkRequest.Builder(InfectedWorker.class,
+                        24, TimeUnit.HOURS, 30, TimeUnit.MINUTES)
+                        .setInitialDelay(24, TimeUnit.HOURS)
+                        .build();
+        WorkManager
+                .getInstance(this)
+                .enqueue(workerRequestInf);
     }
 
 
