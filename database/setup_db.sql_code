@@ -1,0 +1,73 @@
+CREATE TABLE IF NOT EXISTS pairs (
+	dev1 VARCHAR(256) NOT NULL,
+	dev2 VARCHAR(256) NOT NULL,
+	curr_time TIME NOT NULL DEFAULT CURRENT_TIME,
+	flag BOOLEAN DEFAULT FALSE,
+	flag2 BOOLEAN DEFAULT FALSE
+);
+
+CREATE TABLE IF NOT EXISTS tests (
+	key VARCHAR(256) UNIQUE PRIMARY KEY,
+	pdffile bytea,
+	positive BOOLEAN DEFAULT FALSE,
+	confirmed BOOLEAN DEFAULT FALSE
+	);
+
+
+CREATE TABLE IF NOT EXISTS infected (
+	key VARCHAR(256) NOT NULL UNIQUE PRIMARY KEY
+);
+
+CREATE TABLE IF NOT EXISTS curr_keys (
+	curr_key VARCHAR(256) UNIQUE PRIMARY KEY,
+	prev_key VARCHAR(256) UNIQUE
+);
+
+CREATE OR REPLACE FUNCTION key_update()
+RETURNS TRIGGER AS $key_update$
+BEGIN
+	UPDATE curr_keys SET prev_key = OLD.curr_key WHERE curr_key=NEW.curr_key;
+	UPDATE pairs SET dev1 = NEW.curr_key WHERE dev1=OLD.curr_key;
+	UPDATE pairs SET dev2 = NEW.curr_key WHERE dev2=OLD.curr_key;
+	UPDATE infected SET key = NEW.curr_key WHERE key=OLD.curr_key;
+	UPDATE tests SET key = New.curr_key WHERE key=OLD.curr_key;
+	RETURN NULL;
+END;
+$key_update$ LANGUAGE plpgsql;
+
+CREATE TRIGGER update_curr
+ AFTER UPDATE ON curr_keys
+  FOR EACH ROW
+  WHEN (OLD.curr_key IS DISTINCT FROM NEW.curr_key)
+   EXECUTE PROCEDURE
+   key_update();
+
+CREATE OR REPLACE FUNCTION check_infected()
+RETURNS TRIGGER AS $check_infected$
+BEGIN
+	UPDATE pairs SET flag = TRUE WHERE dev1=NEW.key OR dev2=NEW.key;
+
+	RETURN NULL;
+END;
+$check_infected$ LANGUAGE plpgsql;
+
+CREATE TRIGGER infected
+ AFTER INSERT ON infected
+  FOR EACH ROW EXECUTE PROCEDURE
+   check_infected();
+
+CREATE OR REPLACE FUNCTION test_confirmed()
+RETURNS TRIGGER AS $test_confirmed$
+BEGIN
+	IF (NEW.confirmed AND NEW.positive) THEN
+	 INSERT INTO infected VALUES(NEW.key);
+	END IF;
+	RETURN NULL;
+END;
+$test_confirmed$ LANGUAGE plpgsql;
+
+CREATE TRIGGER confirm
+ AFTER UPDATE ON tests
+  FOR EACH ROW
+  WHEN (OLD.key IS NOT DISTINCT FROM NEW.key)
+  EXECUTE PROCEDURE test_confirmed();
