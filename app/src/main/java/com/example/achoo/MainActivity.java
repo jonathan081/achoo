@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
         PeriodicWorkRequest workerRequestInf =
                 new PeriodicWorkRequest.Builder(InfectedWorker.class,
                         24, TimeUnit.HOURS, 30, TimeUnit.MINUTES)
-                        .setInitialDelay(24, TimeUnit.HOURS)
+                        .setInitialDelay(25, TimeUnit.HOURS)
                         .build();
         WorkManager
                 .getInstance(this)
