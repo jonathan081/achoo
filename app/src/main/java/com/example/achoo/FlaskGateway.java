@@ -1,5 +1,7 @@
 package com.example.achoo;
 
+import android.util.Log;
+
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -11,12 +13,14 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
 public class FlaskGateway {
+    private static final String TAG = MainActivity.class.getName();
 
     public static void newUser(){
         HttpURLConnection conn = null;
         DataOutputStream os = null;
         try{
-            URL url = new URL("http://127.0.0.1:5000/add/"); //important to add the trailing slash after add
+            Log.i(TAG, "Entered try");
+            URL url = new URL("http://b0f285f00749.ngrok.io/"); //important to add the trailing slash after add
 
             conn = (HttpURLConnection) url.openConnection();
             conn.setDoOutput(true);
@@ -24,6 +28,7 @@ public class FlaskGateway {
             conn.setRequestProperty("Content-Type", "application/json");
             conn.setRequestProperty( "charset", "utf-8");
             conn.setRequestProperty("Content-Length", "application/json");
+            Log.i(TAG, "Writing Data");
             os = new DataOutputStream(conn.getOutputStream());
             os.write(generateJSON());
             os.flush();
@@ -38,6 +43,7 @@ public class FlaskGateway {
 
             String output;
             System.out.println("Output from Server .... \n");
+            Log.i(TAG, "Output from Server .... \n");
             while ((output = br.readLine()) != null) {
                 System.out.println(output);
             }

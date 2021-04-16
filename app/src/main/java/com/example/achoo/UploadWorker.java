@@ -1,6 +1,7 @@
 package com.example.achoo;
 
 import android.content.Context;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.work.Worker;
@@ -13,6 +14,8 @@ import java.util.UUID;
 public class UploadWorker extends Worker {
     private static final String uniqueID = UUID.randomUUID().toString();
     public static String currKey;
+    private static final String TAG = MainActivity.class.getName();
+
 
     public UploadWorker(
             @NonNull Context context,
@@ -36,6 +39,7 @@ public class UploadWorker extends Worker {
     public static void createFirstKey(){
         String key = getNewKey();
         currKey = key;
+        Log.i(TAG, "Going to flask Gateway");
         FlaskGateway.newUser();
     }
 
