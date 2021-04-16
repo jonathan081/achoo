@@ -49,6 +49,18 @@ def remove_user():
     db.close_connection()
 
 
+@app.route('/new_pair', methods=['POST'])
+def add_new_pair():
+    user_one = request.json['key1']
+    user_two = request.json['key2']
+    db = config_db()
+    db.establish_connection()
+    time = datetime.now(timezone.utc)
+    query = "INSERT INTO pairs VALUES (%s, %s, %s)", (user_one, user_two, time)
+    db.execute_query(query)
+    db.close_connection()
+
+
 @app.route('/user_status', methods=['GET'])
 def user_status():
     user_key = request.json['key']
