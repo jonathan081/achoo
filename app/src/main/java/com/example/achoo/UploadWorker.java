@@ -33,13 +33,13 @@ public class UploadWorker extends Worker {
         return currKey;
     }
 
-    public void createFirstKey(){
+    public static void createFirstKey(){
         String key = getNewKey();
         currKey = key;
         FlaskGateway.newUser();
     }
 
-    private String getNewKey(){
+    private static String getNewKey(){
         //generate random key based on device fingerprint???
         Date currentTime = Calendar.getInstance().getTime();
         return org.apache.commons.codec.digest.DigestUtils.sha256Hex(currentTime.toString() + uniqueID);
