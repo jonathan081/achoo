@@ -1,32 +1,33 @@
 package com.example.achoo;
 
+import android.os.AsyncTask;
 import android.util.Log;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
 import java.net.URL;
-import java.nio.charset.StandardCharsets;
 
-public class FlaskGateway {
+class NetworkAsyncTask extends AsyncTask<Void, Void, Void> {
     private static final String TAG = MainActivity.class.getName();
 
-    public static void newUser(){
+    protected Void doInBackground(Void... params) {
         HttpURLConnection conn = null;
         DataOutputStream os = null;
-        try{
+        try {
             Log.i(TAG, "Entered try");
-            URL url = new URL("http://b0f285f00749.ngrok.io/"); //important to add the trailing slash after add
+            URL url = new URL("https://6269c9e6b2bc.ngrok.io/new_user"); //important to add the trailing slash after add
 
             conn = (HttpURLConnection) url.openConnection();
             conn.setDoOutput(true);
             conn.setRequestMethod("POST");
             conn.setRequestProperty("Content-Type", "application/json");
-            conn.setRequestProperty( "charset", "utf-8");
+            conn.setRequestProperty("charset", "utf-8");
             conn.setRequestProperty("Content-Length", "application/json");
             Log.i(TAG, "Writing Data");
             os = new DataOutputStream(conn.getOutputStream());
@@ -49,22 +50,19 @@ public class FlaskGateway {
             }
             conn.disconnect();
 
-        } catch (MalformedURLException e) {
+        } catch (IOException | JSONException e) {
             e.printStackTrace();
-        }
-        catch (IOException e){
-            e.printStackTrace();
-        }
-
-        finally {
-            if(conn != null)
-            {
+        } finally {
+            if (conn != null) {
                 conn.disconnect();
             }
         }
+        return null;
     }
-
-    private static byte[] generateJSON(){
-        return UploadWorker.getCurrKey().getBytes();
+    private static byte[] generateJSON() throws JSONException {
+        String key = UploadWorker.getCurrKey();
+        JSONObject json = new JSONObject();
+        json.put("key", key);
+        return json.toString().getBytes();
     }
 }

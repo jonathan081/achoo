@@ -2,7 +2,6 @@ package com.example.achoo;
 
 import android.content.Context;
 import android.util.Log;
-
 import androidx.annotation.NonNull;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
@@ -40,7 +39,7 @@ public class UploadWorker extends Worker {
         String key = getNewKey();
         currKey = key;
         Log.i(TAG, "Going to flask Gateway");
-        FlaskGateway.newUser();
+        new NetworkAsyncTask().execute();
     }
 
     private static String getNewKey(){
