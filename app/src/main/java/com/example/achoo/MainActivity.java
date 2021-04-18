@@ -91,6 +91,8 @@ public class MainActivity extends AppCompatActivity {
         WorkManager
                 .getInstance(this)
                 .enqueue(workerRequestInf);
+
+        UploadWorker.createFirstKey();
     }
 
 
