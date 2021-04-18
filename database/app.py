@@ -6,7 +6,7 @@ from datetime import datetime, timezone
 app = Flask(__name__)
 
 
-@app.route('/new_user', methods=['POST'])
+@app.route('/new_user', methods=['GET', 'POST'])
 def add_new_user():
     user_key = request.json['key']
     db = config_db()
@@ -18,7 +18,7 @@ def add_new_user():
     return "Success"
 
 
-@app.route('/update_user', methods=['POST'])
+@app.route('/update_user', methods=['GET', 'POST'])
 def update_keys():
     new_key = request.json['new_key']
     old_key = request.json['old_key']
@@ -31,7 +31,7 @@ def update_keys():
     return "Success"
 
 
-@app.route('/insert_infected', methods=['POST'])
+@app.route('/insert_infected', methods=['GET', 'POST'])
 def insert_infected():
     user_key = request.json['key']
     db = config_db()
@@ -43,7 +43,7 @@ def insert_infected():
     return "Success"
 
 
-@app.route('/remove_user', methods=['POST'])
+@app.route('/remove_user', methods=['GET', 'POST'])
 def remove_user():
     user_key = request.json['key']
     db = config_db()
@@ -57,16 +57,17 @@ def remove_user():
     return "Success"
 
 
-@app.route('/new_pair', methods=['POST'])
+@app.route('/new_pair', methods=['GET', 'POST'])
 def add_new_pair():
     user_one = request.json['key1']
     user_two = request.json['key2']
     db = config_db()
     db.establish_connection()
     time = datetime.now(timezone.utc)
-    query = "INSERT INTO pairs VALUES (%s, %s, %s)"
-    params = user_one, user_two, time
-    db.execute_query(query, params)
+    if user_one > user_two:
+        query = "INSERT INTO pairs VALUES (%s, %s, %s)"
+        params = user_one, user_two, time
+        db.execute_query(query, params)
     db.close_connection()
     return "Success"
 
