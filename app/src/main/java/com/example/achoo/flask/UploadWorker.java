@@ -27,9 +27,8 @@ public class UploadWorker extends Worker {
     @Override
     public Result doWork() {
         String key = getNewKey();
-        //call backend to modify key here.
+        new UpdateUserAsyncTask(key, currKey).execute();
         currKey = key;
-        // Indicate whether the work finished successfully with the Result
         return Result.success();
     }
 
@@ -42,6 +41,10 @@ public class UploadWorker extends Worker {
         currKey = key;
         Log.i(TAG, "Going to flask Gateway");
         new NetworkAsyncTask().execute();
+    }
+
+    public static void uploadPair (String otherKey) {
+       new UploadPairAsyncTask(otherKey).execute();
     }
 
     private static String getNewKey(){

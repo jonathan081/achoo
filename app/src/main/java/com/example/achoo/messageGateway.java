@@ -55,7 +55,7 @@ public class messageGateway {
                 String ourKey = UploadWorker.getCurrKey();
                 int diff = LocalTime.now().compareTo(currTime);
                 if (diff > 15) {
-                    // Call the backend here
+                    UploadWorker.uploadPair(msg);
                 }
             }
         };
