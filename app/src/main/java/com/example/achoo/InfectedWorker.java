@@ -6,8 +6,8 @@ import androidx.annotation.NonNull;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
-import java.util.Calendar;
-import java.util.Date;
+import com.example.achoo.flask.UploadWorker;
+
 import java.util.UUID;
 
 public class InfectedWorker extends Worker {

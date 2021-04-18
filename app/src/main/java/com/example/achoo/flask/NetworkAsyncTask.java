@@ -1,7 +1,9 @@
-package com.example.achoo;
+package com.example.achoo.flask;
 
 import android.os.AsyncTask;
 import android.util.Log;
+
+import com.example.achoo.MainActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
