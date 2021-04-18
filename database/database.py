@@ -23,10 +23,10 @@ class Database:
             except psycopg2.DatabaseError as ex:
                 raise ex
 
-    def execute_query(self, query):
+    def execute_query(self, query, params):
         if self.connection is not None:
             cur = self.connection.cursor()
-            cur.execute(query)
+            cur.execute(query, params)
             cur.close()
         else:
             raise Exception("Attempted to execute query, but there is no connection to the database.")
