@@ -78,12 +78,15 @@ def user_status():
     db = config_db()
     db.establish_connection()
     cur = db.connection.cursor()
-    params = user_key,
-    cur.execute("SELECT EXISTS(SELECT 1 FROM infected WHERE user_key = %s)", params)
-    status = cur.fetchone()[0]
+    params = user_key, user_key
+    cur.execute("SELECT * FROM pairs WHERE dev1 = %s OR dev2 = %s", params)
+    instances = cur.fetchall()
+    for i in instances:
+        if i[3] or i[4]:
+            return "Positive"
     cur.close()
     db.close_connection()
-    return status
+    return "Negative"
 
 
 @app.route('/')
