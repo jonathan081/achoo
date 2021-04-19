@@ -24,6 +24,7 @@ import androidx.core.content.ContextCompat;
 import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkManager;
 
+import com.example.achoo.flask.InfectedWorker;
 import com.example.achoo.flask.UploadWorker;
 import com.example.achoo.ui.login.LoginActivity;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;

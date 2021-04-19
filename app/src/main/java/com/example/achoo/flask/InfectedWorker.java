@@ -1,5 +1,6 @@
-package com.example.achoo;
+package com.example.achoo.flask;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 
 import androidx.annotation.NonNull;
@@ -20,9 +21,11 @@ public class InfectedWorker extends Worker {
         super(context, params);
     }
 
+    @SuppressLint("WrongThread")
     @Override
     public Result doWork() {
         String currKey = UploadWorker.getCurrKey();
+        new InfCheckAsyncTask().execute();
         //call backend to modify key here.
         // Indicate whether the work finished successfully with the Result
         return Result.success();
