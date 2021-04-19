@@ -20,6 +20,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkManager;
@@ -79,7 +81,8 @@ public class MainActivity extends AppCompatActivity {
         PeriodicWorkRequest workerRequestKey =
                 new PeriodicWorkRequest.Builder(UploadWorker.class,
                         24, TimeUnit.HOURS, 30, TimeUnit.MINUTES)
-                        .setInitialDelay(24, TimeUnit.HOURS)
+                        // .setInitialDelay(24, TimeUnit.HOURS)
+                        .setInitialDelay(10, TimeUnit.MINUTES)
                         .build();
         WorkManager
                 .getInstance(this)
@@ -88,7 +91,8 @@ public class MainActivity extends AppCompatActivity {
         PeriodicWorkRequest workerRequestInf =
                 new PeriodicWorkRequest.Builder(InfectedWorker.class,
                         24, TimeUnit.HOURS, 30, TimeUnit.MINUTES)
-                        .setInitialDelay(25, TimeUnit.HOURS)
+                        // .setInitialDelay(25, TimeUnit.HOURS)
+                        .setInitialDelay(4, TimeUnit.MINUTES)
                         .build();
         WorkManager
                 .getInstance(this)

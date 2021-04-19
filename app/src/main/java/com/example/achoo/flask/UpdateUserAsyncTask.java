@@ -37,7 +37,7 @@ class UpdateUserAsyncTask extends AsyncTask<Void, Void, Void> {
             conn.setRequestProperty("Content-Type", "application/json");
             conn.setRequestProperty("charset", "utf-8");
             conn.setRequestProperty("Content-Length", "application/json");
-            Log.i(TAG, "Writing Data");
+            Log.i(TAG, "Writing Data UpdateUser");
             os = new DataOutputStream(conn.getOutputStream());
             os.write(generateJSON());
             os.flush();
@@ -51,8 +51,8 @@ class UpdateUserAsyncTask extends AsyncTask<Void, Void, Void> {
                     (conn.getInputStream())));
 
             String output;
-            System.out.println("Output from Server .... \n");
-            Log.i(TAG, "Output from Server .... \n");
+            System.out.println("Output from Server UpdateUser .... \n");
+            Log.i(TAG, "Output from Server UpdateUser .... \n");
             while ((output = br.readLine()) != null) {
                 System.out.println(output);
             }

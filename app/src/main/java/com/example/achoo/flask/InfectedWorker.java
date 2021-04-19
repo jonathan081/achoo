@@ -1,18 +1,17 @@
 package com.example.achoo.flask;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 
 import androidx.annotation.NonNull;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
-import com.example.achoo.flask.UploadWorker;
-
-import java.util.UUID;
+import com.example.achoo.MainActivity;
 
 public class InfectedWorker extends Worker {
-    private static final String uniqueID = UUID.randomUUID().toString();
     public static String currKey;
 
     public InfectedWorker(
@@ -25,7 +24,7 @@ public class InfectedWorker extends Worker {
     @Override
     public Result doWork() {
         String currKey = UploadWorker.getCurrKey();
-        new InfCheckAsyncTask().execute();
+        new InfCheckAsyncTask(getApplicationContext()).execute();
         //call backend to modify key here.
         // Indicate whether the work finished successfully with the Result
         return Result.success();

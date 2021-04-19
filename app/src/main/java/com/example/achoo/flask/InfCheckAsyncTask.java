@@ -1,9 +1,16 @@
 package com.example.achoo.flask;
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
+
 import com.example.achoo.MainActivity;
+import com.example.achoo.R;
+import com.example.achoo.flask.UploadWorker;
 import com.google.firebase.storage.StorageReference;
 
 import org.json.JSONArray;
@@ -14,12 +21,17 @@ import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.lang.ref.WeakReference;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
 class InfCheckAsyncTask extends AsyncTask<Void, Void, Void> {
     private static final String TAG = MainActivity.class.getName();
-
+    private WeakReference<Context> act;
+    public InfCheckAsyncTask(Context activity) {
+        super();
+        act = new WeakReference<>(activity);
+    }
     protected Void doInBackground(Void... params) {
         HttpURLConnection conn = null;
         DataOutputStream os = null;
@@ -52,6 +64,20 @@ class InfCheckAsyncTask extends AsyncTask<Void, Void, Void> {
             while ((output = br.readLine()) != null) {
                 System.out.println(output);
                 Boolean flagged = unJson(output);
+                Log.i(TAG, "boolean attained");
+                if (flagged) {
+                    Log.i(TAG, "Person has been flagged");
+                    NotificationCompat.Builder builder = new NotificationCompat.Builder(act.get(), "test")
+                            .setSmallIcon(R.drawable.ic_launcher_background)
+                            .setContentTitle("URGENT")
+                            .setContentText("You have recently been in contact with an individual who has contracted" +
+                                    "COVID-19. Please immediately get tested and follow CDC guidelines for quarantine" +
+                                    "after possible exposure.")
+                            .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+                    NotificationManagerCompat notificationManager = NotificationManagerCompat.from(act.get());
+                    notificationManager.notify(1, builder.build());
+                    Log.i(TAG, "Notification sent");
+                }
             }
 
             conn.disconnect();

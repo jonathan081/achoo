@@ -51,7 +51,7 @@ class UploadPairAsyncTask extends AsyncTask<Void, Void, Void> {
 
             String output;
             System.out.println("Output from Server .... \n");
-            Log.i(TAG, "Output from Server .... \n");
+            Log.i(TAG, "Uploaded pair");
             while ((output = br.readLine()) != null) {
                 System.out.println(output);
             }

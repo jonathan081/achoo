@@ -52,7 +52,6 @@ public class messageGateway {
                 NotificationManagerCompat notificationManager = NotificationManagerCompat.from(activity);
                 notificationManager.notify(1, builder.build());
                 String msg = new String(message.getContent());
-                String ourKey = UploadWorker.getCurrKey();
                 int diff = LocalTime.now().compareTo(currTime);
                 if (diff > 15) {
                     UploadWorker.uploadPair(msg);
