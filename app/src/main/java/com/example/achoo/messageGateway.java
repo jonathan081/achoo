@@ -10,7 +10,9 @@ import java.time.LocalTime;
 
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
+import androidx.work.impl.background.systemalarm.ConstraintProxyUpdateReceiver;
 
+import com.example.achoo.flask.CurrentKey;
 import com.example.achoo.flask.UploadWorker;
 import com.google.android.gms.nearby.Nearby;
 import com.google.android.gms.nearby.messages.Message;
@@ -23,28 +25,27 @@ import com.google.android.gms.nearby.messages.SubscribeOptions;
 public class messageGateway {
     private static final String TAG = MainActivity.class.getName();
     private static Message mActiveMessage;
-
     public static MessageListener getMessageListener(Activity activity) {
         return new MessageListener() {
-            private LocalTime currTime;
+            //public LocalTime currTime;
             @Override
             public void onFound(Message message) {
                 Log.d(TAG, "Found message: " + new String(message.getContent()));
                 Log.i(TAG, "Found message via PendingIntent: " + message);
-                NotificationCompat.Builder builder = new NotificationCompat.Builder(activity, "test")
+                NotificationCompat.Builder builder = new NotificationCompat.Builder(activity, "notif")
                         .setSmallIcon(R.drawable.ic_launcher_background)
                         .setContentTitle("HELLO")
                         .setContentText("You have been in proximity with another device")
                         .setPriority(NotificationCompat.PRIORITY_DEFAULT);
                 NotificationManagerCompat notificationManager = NotificationManagerCompat.from(activity);
                 notificationManager.notify(1, builder.build());
-                currTime = LocalTime.now();
+                //currTime = LocalTime.now();
             }
 
             @Override
             public void onLost(Message message) {
                 Log.d(TAG, "Lost sight of message: " + new String(message.getContent()));
-                NotificationCompat.Builder builder = new NotificationCompat.Builder(activity, "test")
+                NotificationCompat.Builder builder = new NotificationCompat.Builder(activity, "notif")
                         .setSmallIcon(R.drawable.ic_launcher_background)
                         .setContentTitle("HELLO")
                         .setContentText("You have lost connection with a nearby device.")
@@ -52,17 +53,17 @@ public class messageGateway {
                 NotificationManagerCompat notificationManager = NotificationManagerCompat.from(activity);
                 notificationManager.notify(1, builder.build());
                 String msg = new String(message.getContent());
-                int diff = LocalTime.now().compareTo(currTime);
-                if (diff > 15) {
-                    UploadWorker.uploadPair(msg);
-                }
+                //int diff = LocalTime.now().compareTo(currTime);
+                //if (diff > 0) {
+                //    UploadWorker.uploadPair(msg);
+                //}
             }
         };
     }
 
 
     public static Message getNewMessage() {
-        return new Message(UploadWorker.getCurrKey().getBytes());
+        return new Message(CurrentKey.getCurrKey().getBytes());
     }
 
     public static SubscribeOptions setSubscribeOptions(){
@@ -97,20 +98,6 @@ public class messageGateway {
             Nearby.getMessagesClient(activity).unpublish(mActiveMessage);
             mActiveMessage = null;
         }
-    }
-
-
-    // Subscribe to receive messages.
-    private void subscribeForeground(MessageListener mMessageListener, Activity activity) {
-        Log.i(TAG, "Subscribing.");
-        SubscribeOptions options = new SubscribeOptions.Builder()
-                .setStrategy(Strategy.BLE_ONLY)
-                .build();
-        Nearby.getMessagesClient(activity).subscribe(mMessageListener, options);
-    }
-    private void unsubscribeForeGround(Activity activity, MessageListener mMessageListener) {
-        Log.i(TAG, "Unsubscribing.");
-        Nearby.getMessagesClient(activity).unsubscribe(mMessageListener);
     }
 
 }

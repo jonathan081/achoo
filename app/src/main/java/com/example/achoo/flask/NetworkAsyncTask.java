@@ -3,6 +3,8 @@ package com.example.achoo.flask;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import androidx.work.impl.background.systemalarm.ConstraintProxyUpdateReceiver;
+
 import com.example.achoo.MainActivity;
 
 import org.json.JSONException;
@@ -23,7 +25,7 @@ class NetworkAsyncTask extends AsyncTask<Void, Void, Void> {
         DataOutputStream os = null;
         try {
             Log.i(TAG, "Entered try");
-            URL url = new URL("https://6269c9e6b2bc.ngrok.io/new_user"); //important to add the trailing slash after add
+            URL url = new URL("https://b677413dc2ad.ngrok.io/new_user"); //important to add the trailing slash after add
 
             conn = (HttpURLConnection) url.openConnection();
             conn.setDoOutput(true);
@@ -62,7 +64,7 @@ class NetworkAsyncTask extends AsyncTask<Void, Void, Void> {
         return null;
     }
     private static byte[] generateJSON() throws JSONException {
-        String key = UploadWorker.getCurrKey();
+        String key = CurrentKey.getCurrKey();
         JSONObject json = new JSONObject();
         json.put("key", key);
         return json.toString().getBytes();

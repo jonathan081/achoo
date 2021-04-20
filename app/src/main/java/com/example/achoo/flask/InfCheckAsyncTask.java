@@ -1,6 +1,5 @@
 package com.example.achoo.flask;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -10,10 +9,7 @@ import androidx.core.app.NotificationManagerCompat;
 
 import com.example.achoo.MainActivity;
 import com.example.achoo.R;
-import com.example.achoo.flask.UploadWorker;
-import com.google.firebase.storage.StorageReference;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -25,7 +21,7 @@ import java.lang.ref.WeakReference;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-class InfCheckAsyncTask extends AsyncTask<Void, Void, Void> {
+public class InfCheckAsyncTask extends AsyncTask<Void, Void, Void> {
     private static final String TAG = MainActivity.class.getName();
     private WeakReference<Context> act;
     public InfCheckAsyncTask(Context activity) {
@@ -37,11 +33,11 @@ class InfCheckAsyncTask extends AsyncTask<Void, Void, Void> {
         DataOutputStream os = null;
         try {
             Log.i(TAG, "Entered try");
-            URL url = new URL("https://6269c9e6b2bc.ngrok.io/"); //important to add the trailing slash after add
+            URL url = new URL("https://b677413dc2ad.ngrok.io/user_status"); //important to add the trailing slash after add
 
             conn = (HttpURLConnection) url.openConnection();
             conn.setDoOutput(true);
-            conn.setRequestMethod("GET");
+            conn.setRequestMethod("POST");
             conn.setRequestProperty("Content-Type", "application/json");
             conn.setRequestProperty("charset", "utf-8");
             conn.setRequestProperty("Content-Length", "application/json");
@@ -63,11 +59,10 @@ class InfCheckAsyncTask extends AsyncTask<Void, Void, Void> {
             Log.i(TAG, "Output from Server .... \n");
             while ((output = br.readLine()) != null) {
                 System.out.println(output);
-                Boolean flagged = unJson(output);
                 Log.i(TAG, "boolean attained");
-                if (flagged) {
+                if (output.equals("Positive")) {
                     Log.i(TAG, "Person has been flagged");
-                    NotificationCompat.Builder builder = new NotificationCompat.Builder(act.get(), "test")
+                    NotificationCompat.Builder builder = new NotificationCompat.Builder(act.get(), "notif")
                             .setSmallIcon(R.drawable.ic_launcher_background)
                             .setContentTitle("URGENT")
                             .setContentText("You have recently been in contact with an individual who has contracted" +
@@ -91,19 +86,8 @@ class InfCheckAsyncTask extends AsyncTask<Void, Void, Void> {
         }
         return null;
     }
-    private static Boolean unJson(String jsonString) throws JSONException {
-        JSONObject obj = new JSONObject(jsonString);
-        String data = obj.getString("key");
-        if (data != null) {
-            return Boolean.getBoolean(data);
-        }else {
-            return false;
-        }
-
-    }
-
     private static byte[] generateJSON() throws JSONException {
-        String key = UploadWorker.getCurrKey();
+        String key = CurrentKey.getCurrKey();
         JSONObject json = new JSONObject();
         json.put("key", key);
         return json.toString().getBytes();

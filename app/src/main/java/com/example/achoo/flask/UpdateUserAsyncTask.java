@@ -15,7 +15,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-class UpdateUserAsyncTask extends AsyncTask<Void, Void, Void> {
+public class UpdateUserAsyncTask extends AsyncTask<Void, Void, Void> {
     private static final String TAG = MainActivity.class.getName();
     private static String newKey;
     private static String oldKey;
@@ -29,7 +29,7 @@ class UpdateUserAsyncTask extends AsyncTask<Void, Void, Void> {
         DataOutputStream os = null;
         try {
             Log.i(TAG, "Entered try");
-            URL url = new URL("https://6269c9e6b2bc.ngrok.io/update_user"); //important to add the trailing slash after add
+            URL url = new URL("https://b677413dc2ad.ngrok.io/update_user"); //important to add the trailing slash after add
 
             conn = (HttpURLConnection) url.openConnection();
             conn.setDoOutput(true);

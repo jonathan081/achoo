@@ -1,10 +1,6 @@
 package com.example.achoo.flask;
 
-import android.content.Context;
 import android.util.Log;
-import androidx.annotation.NonNull;
-import androidx.work.Worker;
-import androidx.work.WorkerParameters;
 
 import com.example.achoo.MainActivity;
 
@@ -12,31 +8,10 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.UUID;
 
-public class UploadWorker extends Worker {
+public class CurrentKey {
     private static final String uniqueID = UUID.randomUUID().toString();
     public static String currKey;
     private static final String TAG = MainActivity.class.getName();
-
-
-    public UploadWorker(
-            @NonNull Context context,
-            @NonNull WorkerParameters params) {
-        super(context, params);
-    }
-
-    @Override
-    public Result doWork() {
-        Log.i(TAG, "entered into work for update");
-        String key = getNewKey();
-        new UpdateUserAsyncTask(key, currKey).execute();
-        currKey = key;
-        return Result.success();
-    }
-
-    public static String getCurrKey() {
-        return currKey;
-    }
-
     public static void createFirstKey(){
         String key = getNewKey();
         currKey = key;
@@ -45,7 +20,7 @@ public class UploadWorker extends Worker {
     }
 
     public static void uploadPair (String otherKey) {
-       new UploadPairAsyncTask(otherKey).execute();
+        new UploadPairAsyncTask(otherKey).execute();
     }
 
     private static String getNewKey(){
@@ -53,4 +28,8 @@ public class UploadWorker extends Worker {
         Date currentTime = Calendar.getInstance().getTime();
         return org.apache.commons.codec.digest.DigestUtils.sha256Hex(currentTime.toString() + uniqueID);
     }
+    public static String getCurrKey() {
+        return currKey;
+    }
+
 }

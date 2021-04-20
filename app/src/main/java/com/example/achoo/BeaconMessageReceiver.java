@@ -20,7 +20,7 @@ public class BeaconMessageReceiver {
             @Override
             public void onFound(Message message) {
                 Log.i(TAG, "Found message via PendingIntent: " + message);
-                NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "test")
+                NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "notif")
                         .setSmallIcon(R.drawable.ic_launcher_background)
                         .setContentTitle("HELLO")
                         .setContentText("You have received a ping from another device")

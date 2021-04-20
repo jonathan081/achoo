@@ -15,13 +15,21 @@
       },
       "oauth_client": [
         {
+          "client_id": "756014346240-1ehqaldpuj7psrqrk00sm0dnu4m56ud6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.achoo",
+            "certificate_hash": "ea0af368b66e8ca165628737ebcee5aff45da898"
+          }
+        },
+        {
           "client_id": "756014346240-sqqm7djpr4c755rh2o3cjitk33474n0f.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAwYNpgWUTqi8iPtTglLez2dayWQkh7aeQ"
+          "current_key": "AIzaSyCSnoKl-DoMLR0OvpZ-XugGE7c5NW2wblI"
         }
       ],
       "services": {

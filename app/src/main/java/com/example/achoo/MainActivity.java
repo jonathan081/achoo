@@ -26,7 +26,10 @@ import androidx.core.content.ContextCompat;
 import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkManager;
 
+import com.example.achoo.flask.CurrentKey;
+import com.example.achoo.flask.InfCheckAsyncTask;
 import com.example.achoo.flask.InfectedWorker;
+import com.example.achoo.flask.UpdateUserAsyncTask;
 import com.example.achoo.flask.UploadWorker;
 import com.example.achoo.ui.login.LoginActivity;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -34,6 +37,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.nearby.Nearby;
+import com.google.android.gms.nearby.messages.Message;
 import com.google.android.gms.nearby.messages.MessageListener;
 import com.google.android.gms.nearby.messages.MessagesClient;
 import com.google.android.gms.nearby.messages.MessagesOptions;
@@ -50,11 +54,12 @@ import java.util.concurrent.TimeUnit;
 public class MainActivity extends AppCompatActivity {
     private static MessageListener mMessageListener;
     private MessagesClient mMessagesClient;
+    private static Message mMessage;
     private static final String TAG = MainActivity.class.getName();
     GoogleSignInClient mGoogleSignInClient;
     // Switch simpleSwitch = (Switch) findViewById(R.id.BLE_Switch);
     private SubscribeOptions options;
-    private FirebaseAuth mAuth;
+    FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +69,11 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Notifications.createNotificationChannel(this);
+        CurrentKey.createFirstKey();
+        mMessageListener = messageGateway.getMessageListener(this);
+        mMessage = messageGateway.getNewMessage();
 
+        options = messageGateway.setSubscribeOptions();
 
         GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -73,32 +82,30 @@ public class MainActivity extends AppCompatActivity {
                 .build();
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
         mAuth = FirebaseAuth.getInstance();
-        
-        mMessageListener =  messageGateway.getMessageListener(this);
 
-        options = messageGateway.setSubscribeOptions();
 
-        PeriodicWorkRequest workerRequestKey =
-                new PeriodicWorkRequest.Builder(UploadWorker.class,
-                        24, TimeUnit.HOURS, 30, TimeUnit.MINUTES)
-                        // .setInitialDelay(24, TimeUnit.HOURS)
-                        .setInitialDelay(10, TimeUnit.MINUTES)
-                        .build();
-        WorkManager
-                .getInstance(this)
-                .enqueue(workerRequestKey);
 
-        PeriodicWorkRequest workerRequestInf =
-                new PeriodicWorkRequest.Builder(InfectedWorker.class,
-                        24, TimeUnit.HOURS, 30, TimeUnit.MINUTES)
-                        // .setInitialDelay(25, TimeUnit.HOURS)
-                        .setInitialDelay(4, TimeUnit.MINUTES)
-                        .build();
-        WorkManager
-                .getInstance(this)
-                .enqueue(workerRequestInf);
+//        PeriodicWorkRequest workerRequestKey =
+//                new PeriodicWorkRequest.Builder(UploadWorker.class,
+//                        24, TimeUnit.HOURS, 30, TimeUnit.MINUTES)
+//                        // .setInitialDelay(24, TimeUnit.HOURS)
+//                        .setInitialDelay(10, TimeUnit.MINUTES)
+//                        .build();
+//        WorkManager
+//                .getInstance(this)
+//                .enqueue(workerRequestKey);
+//
+//        PeriodicWorkRequest workerRequestInf =
+//                new PeriodicWorkRequest.Builder(InfectedWorker.class,
+//                        24, TimeUnit.HOURS, 30, TimeUnit.MINUTES)
+//                        // .setInitialDelay(25, TimeUnit.HOURS)
+//                        .setInitialDelay(4, TimeUnit.MINUTES)
+//                        .build();
+//        WorkManager
+//                .getInstance(this)
+//                .enqueue(workerRequestInf);
 
-        UploadWorker.createFirstKey();
+
     }
 
 
@@ -125,14 +132,16 @@ public class MainActivity extends AppCompatActivity {
         BluetoothAdapter bluetoothAdapter = bluetoothManager.getAdapter();
 
         mMessageListener =  messageGateway.getMessageListener(this);
-
+        Log.i(TAG, "Have the listener");
+        mMessage = messageGateway.getNewMessage();
         options = messageGateway.setSubscribeOptions();
+        mAuth = FirebaseAuth.getInstance();
+
     }
 
     @Override
     public void onStop() {
-        //Nearby.getMessagesClient(this).unpublish(mMessage);
-        //Nearby.getMessagesClient(this).unsubscribe(mMessageListener);
+        Nearby.getMessagesClient(this).unsubscribe(mMessageListener);
         super.onStop();
     }
 
@@ -168,7 +177,8 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.sign_out) {
-             mGoogleSignInClient.signOut()
+            FirebaseAuth.getInstance().signOut();
+            mGoogleSignInClient.signOut()
                     .addOnCompleteListener(this, new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
@@ -177,6 +187,7 @@ public class MainActivity extends AppCompatActivity {
                             startActivity(ide);
                         }
                     });
+
         }
 
         if (id == R.id.upload) {
@@ -200,7 +211,6 @@ public class MainActivity extends AppCompatActivity {
 
         } else {
             activateNearby(simpleSwitch);
-            return;
         }
     }
     public void uploadButton(View view) {
@@ -208,9 +218,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void activateNearby(Switch simpleSwitch){
+        Log.i(TAG, "Activating NEARBY");
         mMessageListener = messageGateway.getMessageListener(this);
         messageGateway.backgroundSubscribe(this, mMessageListener);
         messageGateway.publish(this);
+        new UpdateUserAsyncTask(CurrentKey.getCurrKey(), CurrentKey.getCurrKey()).execute();
     }
 
     private void deactivateNearby(Switch simpleSwitch){
@@ -218,12 +230,12 @@ public class MainActivity extends AppCompatActivity {
         mMessageListener = null;
         Nearby.getMessagesClient(this).unsubscribe(messageGateway.getPendingIntent(this));
         messageGateway.unpublish(this);
+        new InfCheckAsyncTask(getApplicationContext()).execute();
+
     }
 
     public void sendToUpload(){
         Intent ide = new Intent(MainActivity.this, UploadActivity.class);
-        // ide.putExtra
-        // ide.addFlags ** May be needed **
         startActivity(ide);
     }
 }

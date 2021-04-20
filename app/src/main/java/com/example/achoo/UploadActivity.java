@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
-import com.example.achoo.flask.UploadWorker;
+import com.example.achoo.flask.CurrentKey;
 import com.example.achoo.ui.login.LoginActivity;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -36,13 +36,13 @@ import android.widget.Toast;
 
 public class UploadActivity extends AppCompatActivity {
     GoogleSignInClient mGoogleSignInClient;
-    private FirebaseAuth mAuth;
     private static final String TAG = UploadActivity.class.getName();
     EditText editText;
     Button uploadBtn;
     StorageReference storageReference;
     DatabaseReference databaseReference;
     private int RC_UPLOAD= 12;
+    FirebaseAuth mAuth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,11 +56,10 @@ public class UploadActivity extends AppCompatActivity {
                 .requestEmail()
                 .build();
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-        mAuth = FirebaseAuth.getInstance();
 
         editText = findViewById(R.id.editText);
         uploadBtn = findViewById(R.id.uploadButton);
-
+        mAuth = FirebaseAuth.getInstance();
         storageReference = FirebaseStorage.getInstance().getReference();
         databaseReference = FirebaseDatabase.getInstance().getReference("uploadPDF");
 
@@ -118,7 +117,7 @@ public class UploadActivity extends AppCompatActivity {
                 while (!uriTask.isComplete());
 
                 Uri uri = uriTask.getResult();
-                String userKey = UploadWorker.getCurrKey();
+                String userKey = CurrentKey.getCurrKey();
                 PdfMaker pdfMaker = new PdfMaker(userKey, editText.getText().toString(), uri.toString());
 
                 databaseReference.child(databaseReference.push().getKey()).setValue(pdfMaker);
@@ -139,6 +138,7 @@ public class UploadActivity extends AppCompatActivity {
         // Handle action bar item clicks here.
         int id = item.getItemId();
         if (id == R.id.sign_out) {
+            FirebaseAuth.getInstance().signOut();
             mGoogleSignInClient.signOut()
                     .addOnCompleteListener(this, new OnCompleteListener<Void>() {
                         @Override
