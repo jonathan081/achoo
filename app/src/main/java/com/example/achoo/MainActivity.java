@@ -25,6 +25,7 @@ import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkManager;
+import androidx.work.impl.background.systemalarm.ConstraintProxyUpdateReceiver;
 
 import com.example.achoo.flask.CurrentKey;
 import com.example.achoo.flask.InfCheckAsyncTask;
@@ -214,6 +215,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
     public void uploadButton(View view) {
+        new InfCheckAsyncTask(getApplicationContext()).execute();
         sendToUpload();
     }
 
@@ -230,8 +232,7 @@ public class MainActivity extends AppCompatActivity {
         mMessageListener = null;
         Nearby.getMessagesClient(this).unsubscribe(messageGateway.getPendingIntent(this));
         messageGateway.unpublish(this);
-        new InfCheckAsyncTask(getApplicationContext()).execute();
-
+        CurrentKey.uploadPair("fakekeytotest");
     }
 
     public void sendToUpload(){

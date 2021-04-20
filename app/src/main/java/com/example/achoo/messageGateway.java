@@ -27,19 +27,19 @@ public class messageGateway {
     private static Message mActiveMessage;
     public static MessageListener getMessageListener(Activity activity) {
         return new MessageListener() {
-            //public LocalTime currTime;
+            public LocalTime currTime;
             @Override
             public void onFound(Message message) {
                 Log.d(TAG, "Found message: " + new String(message.getContent()));
                 Log.i(TAG, "Found message via PendingIntent: " + message);
                 NotificationCompat.Builder builder = new NotificationCompat.Builder(activity, "notif")
                         .setSmallIcon(R.drawable.ic_launcher_background)
-                        .setContentTitle("HELLO")
+                        .setContentTitle("UPDATE")
                         .setContentText("You have been in proximity with another device")
                         .setPriority(NotificationCompat.PRIORITY_DEFAULT);
                 NotificationManagerCompat notificationManager = NotificationManagerCompat.from(activity);
                 notificationManager.notify(1, builder.build());
-                //currTime = LocalTime.now();
+                currTime = LocalTime.now();
             }
 
             @Override
@@ -47,16 +47,16 @@ public class messageGateway {
                 Log.d(TAG, "Lost sight of message: " + new String(message.getContent()));
                 NotificationCompat.Builder builder = new NotificationCompat.Builder(activity, "notif")
                         .setSmallIcon(R.drawable.ic_launcher_background)
-                        .setContentTitle("HELLO")
+                        .setContentTitle("UPDATE")
                         .setContentText("You have lost connection with a nearby device.")
                         .setPriority(NotificationCompat.PRIORITY_DEFAULT);
                 NotificationManagerCompat notificationManager = NotificationManagerCompat.from(activity);
                 notificationManager.notify(1, builder.build());
                 String msg = new String(message.getContent());
-                //int diff = LocalTime.now().compareTo(currTime);
-                //if (diff > 0) {
-                //    UploadWorker.uploadPair(msg);
-                //}
+                int diff = LocalTime.now().compareTo(currTime);
+                if (diff > 0) {
+                    CurrentKey.uploadPair(msg);
+                }
             }
         };
     }
